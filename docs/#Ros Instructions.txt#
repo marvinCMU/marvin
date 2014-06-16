@@ -1,0 +1,94 @@
+/* 
+ * Project: Multi Modal First Person Sensing (MMFPS)
+ * Author: Qifan Hu (qhu@andrew.cmu.edu)
+ * Affiliation: Carnegie Mellon University, ISTC-EC
+ * Date: 11/5/2012
+ */
+
+**********************************
+Use the ROS system - general notes
+**********************************
+
+Tutorial: http://www.ros.org/wiki/ROS/Tutorials
+
+. rossetup.sh
+
+----------
+Usage Code
+----------
+1. roscreate-pkg [package] [depend1] [depend2] ...
+2. rospack depends [package]
+3. rosdep install [package]
+4. rosmake [package]
+
+---------
+Usage Run
+---------
+1. roscore (in seperate terminal)
+2. rosrun [package] [node]
+
+------------
+Usage Logger
+------------
+1. roscore (in seperate terminal)
+1. rxconsole (in seperate terminal)
+2. rxloggerlevel (in seperate terminal)
+3. rosrun [package] [node]
+
+-----------------
+Usage Launch File
+-----------------
+Tutorial: http://www.ros.org/wiki/ROS/Tutorials/UsingRxconsoleRoslaunch
+1. Create launch file
+2. roslaunch [package] [filename.launch]
+
+--------
+Ros Node
+--------
+1. rosnode list
+2. rosnode info [node]
+
+---------
+Ros Topic
+---------
+1. rostopic list -v
+2. rostopic echo [topic]
+3. rostopic type [topic]
+4. rosmsg show [msg type]
+5. rostopic pub -1 [topic] [msg_type] -- [args]
+6. rostopic hz [topic]
+7. rostopic bw [topic]
+8. rxgraph
+
+-----------
+Ros Service
+-----------
+1. rosservice list
+2. rosservice type [service]
+3. rosservice call [service] [args]
+4. rosservice find [srv_type]
+5. rosservice uri [service]
+
+-------
+Ros Msg
+-------
+1. rosmsg show [package/msg_type]
+2. rosmsg show [package]
+3. rosmsg show [packages]
+
+-------
+Ros Srv
+-------
+1. rossrv show [package/srv_type]
+
+-------------
+Ros Parameter
+-------------
+1. rosparam list
+2. rosparam set [param]
+3. rosparam get [param]
+4. rosparam dump [file]
+5. rosparam load [file] [namespace]
+6. rosparam load [namespace/param]
+7. rosed [package] [file]
+

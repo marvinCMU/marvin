@@ -1,0 +1,15 @@
+/* 
+ * Project: Multi Modal First Person Sensing (MMFPS)
+ * Author: Qifan Hu (qhu@andrew.cmu.edu)
+ * Affiliation: Carnegie Mellon University, ISTC-EC
+ * Date: 11/5/2012
+ */
+
+$ cd ~/mmfps
+
+Upload:
+$ git commit -a -m "message"
+$ git push
+
+Download:
+$ git pull

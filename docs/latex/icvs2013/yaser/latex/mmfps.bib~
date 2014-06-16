@@ -1,0 +1,59 @@
+@article{pocketsphinx,
+AUTHOR = "Huggins-Daines, D. and Kumar, M. and Chan, A. and Black, A.W. and Ravishankar, M. and Rudnicky, A.I.",
+TITLE = "PocketSphinx: A free, real-time continuous speech recognition system for hand-held device",
+journal = "Acoustics, Speech and Signal Processing",
+VOLUME = 1,
+YEAR = "2006",
+}
+
+@INPROCEEDINGS{exemplarsvm,
+AUTHOR = "Malisiewicz, T. and Gupta, A. and Efros, A.A.",
+TITLE = "Ensemble of exemplar-svms for object detection and beyond",
+BOOKTITLE = "IEEE International Conference on Computer Vision (ICCV)",
+YEAR = "2011",
+PAGES = "89--96"
+}
+
+@article{pocketsphinx,
+AUTHOR = "Heisele B. and Serre, T. and Poggio, T.", 
+TITLE = "A component-based framework for face detection and identification",
+journal = "International Journal of Computer Vision", 
+PUBLISHER = "Springer",
+VOLUME = 74,
+NUMBER = 6,
+PAGES = "161--181",
+YEAR = "2007"
+}
+
+@INPROCEEDINGS{3dreconstruction,
+AUTHOR = "H. S. Park and Y. Sheikh", 
+TITLE = "3D reconstruction of a smoothed articulated trajectory from a monocular image sequence",
+BOOKTITLE = "IEEE International Conference on Computer Vision (ICCV)",
+YEAR = "2011",
+}
+
+@article{bnclassifier,
+AUTHOR = "Friedman, N. and Geiger, D. and Goldszmidt, M.", 
+TITLE = "Bayesian network classifiers",
+journal = "International Journal of Machine Learning",
+PUBLISHER = "Springer",
+VOLUME = 29,
+NUMBER = 2,
+PAGES = "121--163",
+YEAR = "1997"
+}
+
+@INPROCEEDINGS{niklfeld2001,
+AUTHOR = "Niklfeld, G. and Finan, R. and Pucher, M.",
+TITLE = "Architecture for adaptive multimodal dialog systems based on {V}oice{XML}",
+BOOKTITLE = "Proceedings of EuroSpeech",
+YEAR = "2001",
+}
+
+@INPROCEEDINGS{ros,
+AUTHOR = "Quigley, M. and Gerkey, B. and Conley, K. and Faust, J. and Foote, T. and Leibs, J. and Berger, E. and Wheeler, R. and Ng, A.",
+TITLE = "ROS: an open-source Robot Operating System",
+BOOKTITLE = "ICRA workshop on open source software",
+YEAR = "2009",
+}
+

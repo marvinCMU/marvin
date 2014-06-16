@@ -1,0 +1,407 @@
+/* 
+ * Project: Multi Modal First Person Sensing (MMFPS)
+ * Author: Qifan Hu (qhu@andrew.cmu.edu)
+ * Affiliation: Carnegie Mellon University, ISTC-EC
+ * Date: 11/5/2012
+ */
+/* 
+ *  Edited by Denver Dash (denver.h.dash@intel.com) 3/2013
+ */
+
+
+*************************************
+Full installation takes 15-20GB Space
+1. Ubuntu 12.04 (32/64 bit) - Denver got to work on 64 bit see addendum to instructions below
+2. v4l
+3. MATLAB
+4. MCR
+5. JDK 7
+6. GTK+
+7. OpenCV
+8. ROS
+9. Sphinx
+10. PCL
+************************************
+
+Some Dependencies:
+sudo apt-get install cmake libglew1.6 libopenal-dev
+
+Copy glew cmake file:
+cd mmfps/ros; sudo cp FindGLEW.cmake /usr/share/cmake-2.8/Modules/
+
+
+
+Create src folder
+$ mkdir ~/src
+
+---
+v4l
+---
+**Denver note: Do not install this. After doing this, 
+**my machine could no longer operate *any* camera. Make a system backup
+**before doing this. Maybe we need to go find a specific driver for the 
+**first person camera rather than installing all these experimental
+**drivers.
+**
+**For the first-person camera
+1. sudo apt-get install patch patchutils libproc-processtable-perl git
+2. cd ~/src
+3. git clone git://linuxtv.org/media_build.git
+4. cd media_build 
+5. ./build
+6. sudo make install
+
+
+-----------------
+MATLAB (from CMU)
+-----------------
+Request access from software@andrew.cmu.edu. 
+1. cd ~
+2. mkdir MATLAB
+3. cd MATLAB
+4. sftp asuveepa@unix.andrew.cmu.edu
+5. cd /afs/andrew/system/archive/matlab/matlab_R2011a
+6. get License.dat
+7. get Matlab-R2011aLicense_Instructions - linux.doc
+8. get Matlab2011a_x86.iso 
+9. sudo mkdir /media/iso
+10. sudo mount -o loop ~/MATLAB/Matlab2011a_x86.iso /media/iso
+11. sudo unzip /media/iso/matlab_R2011a_glnx86_installer.zip
+12. cd archives
+13. sudo cp /media/iso/archives/* .
+14. cd glnx86 (glnxa64 on x64)
+15. sudo cp /media/iso/archives/glnx86/* . (glnxa64 on x64)
+16. sudo  ./install
+17. Follow the instructions in Matlab-R2011aLicense_Instructions - linux.doc
+18. echo '# Matlab variables' >> ~/.bashrc
+19. echo 'export PATH=$PATH:/usr/local/MATLAB/R2011a/bin' >> ~/.bashrc
+20. sudo ln -s /lib/i386-linux-gnu/libc-2.15.so /lib/libc.so.6
+--Or-- Install cracked Matlab2012a
+1. cd src/Matlab_Unix_2012a/ml2012au
+2. sudo chmod -R 755 ~/src/Matlab_Unix_2012a/ml2012au/sys/java/jre/glnx86/jre/bin/
+3. sudo chmod +x install
+4. sudo ./install -javadir ~/src/Matlab_Unix_2012a/ml2012au/sys/java/jre/glnx86/jre
+5. echo 'export PATH=$PATH:/usr/local/MATLAB/R2012a/bin' >> ~/.bashrc
+6. sudo ln -s /lib/i386-linux-gnu/libc-2.15.so /lib/libc.so.6
+7. cd /usr/local/MATLAB/R2012a/bin
+8. sudo -s
+9. matlab
+10. Activitate matlab and open a new terminal
+11. sudo chmod a+w -R ~/.matlab
+
+
+---------------------------------------------
+MCR if MATLAB not available (not recommended)
+---------------------------------------------
+**This installs the MCR version v717
+1. wget http://www.mathworks.com/supportfiles/MCR_Runtime/R2012a/MCR_R2012a_glnx86_installer.zip
+2. unzip MCR_R2012a_glnx86_installer.zip
+3. sudo -s
+4. ./install
+	Use default path: /usr/local/MATLAB/MATLAB_Compiler_Runtime
+5. Edit .bashrc
+----OR----
+**Use MCRInstaller.bin, this installs the MCR version v715
+1. cd [Project-directorty]/code/MCR
+2. sudo -s
+3. ./MCRInstaller.bin -console
+4. Follow the instructions, set the installation path: 
+	/usr/local/MATLAB/MATLAB_Compiler_Runtime
+5. Edit .bashrc
+----------
+**Edit the environment variables
+**change the version number if required: v717 to v715
+1. echo '# MCR variables' >> ~/.bashrc
+2. echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v717/runtime/glnx86:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v717/bin/glnx86:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v717/sys/os/glnx86:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v717/sys/java/jre/glnx86/jre/lib/i386/native_threads:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v717/sys/java/jre/glnx86/jre/lib/i386/server:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v717/sys/java/jre/glnx86/jre/lib/i386' >> ~/.bashrc
+3. echo 'export XAPPLRESDIR=$XAPPLRESDIR:/usr/local/MATLAB/MATLAB_Compiler_Runtime/v717/X11/app-defaults' >> ~/.bashrc
+----------
+**To run compiled MATLAB files
+1. sudo -s
+2. ./objRecog
+
+
+-----
+JDK 7
+-----
+Download "[jdk-version]-i586.tar.gz" from http://www.oracle.com/technetwork/java/javase/downloads/index.html
+**Install eclipse
+0. sudo apt-get install eclipse
+1. ln -s /usr/lib/jni/libswt-* ~/.swt/lib/linux/x86/
+**Remove OpenJDK
+0. sudo apt-get purge openjdk*
+**Install JDK 7
+1. tar -xvf jdk-7u9-linux-i586.tar.gz
+2. sudo mkdir /usr/lib/jvm
+3. sudo mv ./jdk1.7.0_09 /usr/lib/jvm/jdk1.7.0_09
+4. sudo update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/jdk1.7.0_21/bin/java" 1
+5. sudo update-alternatives --install "/usr/bin/javac" "javac" "/usr/lib/jvm/jdk1.7.0_21/bin/javac" 1
+6. sudo update-alternatives --install "/usr/bin/javaws" "javaws" "/usr/lib/jvm/jdk1.7.0_21/bin/javaws" 1
+7. sudo update-alternatives --config java
+8. Choose the number of jdk1.7.0_09
+9. sudo update-alternatives --config javac
+10. sudo update-alternatives --config javaws
+11. echo '# Java variables' >> ~/.bashrc
+12. echo 'export JAVA_HOME=/usr/lib/jvm/jdk1.7.0/' >> ~/.bashrc
+**Trouble Shoot: check "/usr/bin", make sure "java", "javac", "javaws" are files instead of folders, delete and reinstall if folders.
+
+----
+GTK+
+----
+***************
+**Denver NOTE: the following pre-packages seem to work fine instead of the instructions below:
+** sudo apt-get install libgtk2.0-0 libgtk2.0-dev
+***************
+Chinese tutorial: http://bbs.xml.org.cn/blog/more.asp?name=airclh&id=27104
+----------
+**Strictly follow the installation order below
+1. echo '# Gtk variables' >> ~/.bashrc
+1. echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib:/opt/gtk/lib' >> ~/.bashrc
+2. echo 'export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/lib/pkgconfig:/usr/X11R6/lib/pkgconfig:/opt/gtk/lib/pkgconfig' >> ~/.bashrc
+----------
+A. **install libffi
+1. cd ~/src
+2. wget ftp://sourceware.org/pub/libffi/libffi-3.0.11.tar.gz
+3. tar zxvf libffi-3.0.11.tar.gz
+4. cd libffi-3.0.11
+5. ./configure --prefix=/opt/gtk
+6. make
+7. sudo make install
+8. export LIBFFI_LIBS=-lffi
+9. export LIBFFI_CFLAGS=-I/opt/gtk/lib/libffi-3.0.11/include
+----------
+B. **install glib
+1. cd ~/src
+2. wget http://ftp.gnome.org/pub/gnome/sources/glib/2.32/glib-2.32.4.tar.xz
+3. tar xvfJ glib-2.32.4.tar.xz
+4. cd glib-2.32.4
+5. ./configure --prefix=/opt/gtk
+6. make
+7. sudo make install
+----------
+C. **install atk
+1. cd ~/src
+2. wget http://ftp.gnome.org/pub/gnome/sources/atk/2.4/atk-2.4.0.tar.xz
+3. tar xvfJ atk-2.4.0.tar.xz
+4. cd atk-2.4.0
+5. ./configure --prefix=/opt/gtk
+6. make
+7. sudo make install
+----------
+D. **install pixman
+1. cd ~/src
+2. wget http://www.cairographics.org/releases/pixman-0.26.2.tar.gz
+3. tar zxvf pixman-0.26.2.tar.gz
+4. cd pixman-0.26.2
+5. ./configure --prefix=/opt/gtk
+6. make
+7. sudo make install
+----------
+E. **install cairo
+1. cd ~/src
+2. wget http://www.cairographics.org/releases/cairo-1.12.2.tar.xz
+1. tar xvfJ cairo-1.12.2.tar.xz
+2. cd cairo-1.12.2
+3. ./configure --prefix=/opt/gtk --with-x --enable-win32=no
+4. make
+5. sudo make install
+----------
+F. **install pango
+1. cd ~/src
+2. wget http://ftp.gnome.org/pub/gnome/sources/pango/1.30/pango-1.30.1.tar.xz
+3. tar xvfJ pango-1.30.1.tar.xz
+4. cd pango-1.30.1
+5. ./configure --prefix=/opt/gtk --libdir=/opt/gtk/lib --with-x
+6. make
+7. sudo make install
+----------
+G. **install libpng
+1. cd ~/src
+2. wget http://sourceforge.net/projects/libpng/files/libpng-1.5.13.tar.xz
+3. tar xvfJ libpng-1.5.13.tar.xz
+4. cd libpng-1.5.13
+5. make prefix=/opt/gtk \ZLIBINC=/opt/gtk/include ZLIBLIB=/opt/gtk/lib -f scripts/makefile.linux
+6. sudo make prefix=/opt/gtk install -f scripts/makefile.linux
+----------
+H. **install libtiff
+1. cd ~/src
+2. wget http://dl.maptools.org/dl/libtiff/tiff-3.8.2.tar.gz
+3. tar zxvf tiff-3.8.2.tar.gz
+4. cd tiff-3.8.2
+5. ./configure --prefix=/opt/gtk --with-DIR_MAN=/usr/share/man
+6. make
+7. sudo make install
+8. sudo apt-get install libtiff4-dev
+----------
+I. **install libjpeg
+1. cd ~/src
+2. wget http://www.ijg.org/jpegsrc.v8d.tar.gz
+3. tar zxvf jpegsrc.v8d.tar.gz
+4. cd jpeg-8d
+5. ./configure --enable-static --enable-shared --prefix=/opt/gtk
+6. make
+7. sudo make install
+----------
+J. **install pixbuff
+1. cd ~/src
+2. wget http://ftp.gnome.org/pub/gnome/sources/gdk-pixbuf/2.26/gdk-pixbuf-2.26.4.tar.xz
+3. tar xvfJ gdk-pixbuf-2.26.4.tar.xz
+4. cd gdk-pixbuf-2.26.4
+5. ./configure --prefix=/opt/gtk
+6. make
+7. sudo make install
+----------
+K. **install gtk+
+1. cd ~/src
+2. wget http://ftp.gnome.org/pub/gnome/sources/gtk+/3.4/gtk+-3.4.4.tar.xz
+3. tar xvfJ gtk+-3.4.4.tar.xz
+4. cd gtk+-3.4.4
+5. ./configure --prefix=/opt/gtk --with-x --without-libjpeg
+6. make
+7. sudo make install
+
+------
+Intel IPP
+------
+Ask Denver
+
+------
+OpenCV
+------
+***NOTE:
+***Denver skipped steps 1, 7-20 and opencv seems to be working fine: 
+***
+*1. sudo apt-get remove ffmpeg x264 libx264-dev
+2. sudo apt-get update
+3. sudo apt-get install build-essential checkinstall git cmake libfaac-dev libjack-jackd2-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libsdl1.2-dev libtheora-dev libva-dev libvdpau-dev libvorbis-dev libx11-dev libxfixes-dev libxvidcore-dev texi2html yasm zlib1g-dev libgstreamer0.10-0 libgstreamer0.10-dev gstreamer0.10-tools gstreamer0.10-plugins-base libgstreamer-plugins-base0.10-dev gstreamer0.10-plugins-good gstreamer0.10-plugins-ugly gstreamer0.10-plugins-bad gstreamer0.10-ffmpeg
+5. sudo apt-get install libgtk2.0-0 libgtk2.0-dev
+6. sudo apt-get install libjpeg8 libjpeg8-dev
+*7. cd ~/src
+*8. wget ftp://ftp.videolan.org/pub/videolan/x264/snapshots/x264-snapshot-20120528-2245-stable.tar.bz2
+*9. tar xvf x264-snapshot-20120528-2245-stable.tar.bz2
+*10. cd x264-snapshot-20120528-2245-stable
+*11. ./configure --enable-static
+*12. make
+*13. sudo make install
+*14. cd ~/src
+*15. wget http://ffmpeg.org/releases/ffmpeg-0.11.tar.bz2
+*16. tar xvf ffmpeg-0.11.tar.bz2
+*17. cd ffmpeg-0.11
+*18. ./configure --enable-gpl --enable-libfaac --enable-libmp3lame --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libvorbis --enable-libx264 --enable-libxvid --enable-nonfree --enable-postproc --enable-version3 --enable-x11grab
+*19. make
+*20. sudo make install
+21. cd ~/src
+22. wget http://downloads.sourceforge.net/project/opencvlibrary/opencv-unix/2.4.2/OpenCV-2.4.2.tar.bz2
+23. tar xvf OpenCV-2.4.2.tar.bz2
+24. cd OpenCV-2.4.2/
+25. mkdir build
+26. cd build
+27. cmake -D CMAKE_BUILD_TYPE=RELEASE ..
+	(Verify that the output of cmake includes the following text:
+    	- found gstreamer-base-0.10
+    	- GTK+ 2.x: YES
+    	- FFMPEG: YES
+    	- GStreamer: YES
+    	- V4L/V4L2: Using libv4l)
+28. make
+29. sudo make install
+30. echo '# OpenCV variables' >> ~/.bashrc
+31. echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib' >> ~/.bashrc
+32. echo 'export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig' >> ~/.bashrc
+
+
+---
+ROS
+---
+Tutorial: http://www.ros.org/wiki/fuerte/Installation/Ubuntu
+1. sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu precise main" > /etc/apt/sources.list.d/ros-latest.list'
+2. wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
+3. sudo apt-get update
+4. sudo apt-get install ros-fuerte-desktop-full ros-fuerte-camera-umd ros-fuerte-vision-opencv ros-fuerte-image-pipeline ros-fuerte-audio-common guvcview python-rosinstall python-rosdep ros-fuerte-qt-ros python-pip
+4. sudo apt-get install ros-fuerte-desktop-full
+5. sudo apt-get install ros-fuerte-camera-umd
+6. sudo apt-get install ros-fuerte-vision-opencv
+7. sudo apt-get install ros-fuerte-image-pipeline
+8. sudo apt-get install ros-fuerte-audio-common
+9. sudo apt-get install guvcview
+10. sudo apt-get install python-rosinstall python-rosdep
+11. sudo apt-get install ros-fuerte-qt-ros
+12. sudo apt-get install python-pip
+13. sudo pip install --upgrade roscreate
+14. sudo rosdep init
+15. rosdep update
+16. echo '# ROS variables' >> ~/.bashrc
+17. echo 'source /opt/ros/fuerte/setup.bash' >> ~/.bashrc
+18. echo 'export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/YOUR-PROJECT-PATH' >> ~/.bashrc
+19. . ~/.bashrc
+
+
+------
+Sphinx
+------
+Reference: http://cmusphinx.sourceforge.net/wiki/tutorialpocketsphinx
+----------
+A. **install bison
+1. cd ~/src
+2. wget http://ftp.gnu.org/gnu/bison/bison-2.7.tar.gz
+3. tar zxvf bison-2.7.tar.gz
+4. cd bison-2.7
+5. ./configure --prefix=/usr/local
+6. make
+7. sudo make install
+----------
+B. **install SphinxBase
+**Denver changed these all to 0.8 version:
+1. cd ~/src
+2. wget http://sourceforge.net/projects/cmusphinx/files/sphinxbase/0.8/sphinxbase-0.8.tar.gz
+3. tar zxvf sphinxbase-0.8.tar.gz
+4. mv sphinxbase-0.8 sphinxbase
+5. cd sphinxbase
+6. ./configure
+7. make
+8. sudo make install
+----------
+C. **install PocketSphinx
+**Denver changed these all to 0.8 version:
+1. cd ~/src
+2. wget http://sourceforge.net/projects/cmusphinx/files/pocketsphinx/0.8/pocketsphinx-0.8.tar.gz
+3. tar zxvf pocketsphinx-0.8.tar.gz
+4. mv pocketsphinx-0.8 pocketsphinx
+5. cd pocketsphinx
+6. ./configure
+7. make
+8. sudo make install
+9. sudo apt-get install gstreamer0.10-pocketsphinx
+10. echo '# Sphinx variables' >> ~/.bashrc
+11. echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib' >> ~/.bashrc
+12. echo 'export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig' >> ~/.bashrc
+----------
+D. **install SFML // Denver: this step is buggy, skip it for now. Everything seems fine without it.
+1. cd ~/src
+2. wget http://iweb.dl.sourceforge.net/project/sfml/sfml/1.6/SFML-1.6-sdk-linux-32.tar.gz
+3. tar zxvf SFML-1.6-sdk-linux-32.tar.gz
+4. cd SFML-1.6/
+5. make
+6. sudo make install
+----------
+E. **test installation
+1. cd ~/src/pocketsphinx/src/programs
+2. ./pocketsphinx_continuous
+3. Check whether working
+
+
+---
+PCL
+---
+1. sudo add-apt-repository ppa:v-launchpad-jochen-sprickerhof-de/pcl
+2. sudo apt-get update
+3. sudo apt-get install libpcl-all
+
+-----
+Boost process:
+-----
+cd ~/src
+mkdir process
+cd process
+wget http://www.highscore.de/boost/process.zip
+unzip ./process.zip
+sudo cp -r ./boost/* /usr/include/boost/

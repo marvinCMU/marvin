@@ -1,0 +1,8 @@
+#!/bin/sh
+export BIBINPUTS=./
+
+pdflatex draft.tex
+bibtex draft
+pdflatex draft.tex
+pdflatex draft.tex
+

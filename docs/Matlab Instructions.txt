@@ -1,0 +1,55 @@
+/* 
+ * Project: Multi Modal First Person Sensing (MMFPS)
+ * Author: Qifan Hu (qhu@andrew.cmu.edu)
+ * Affiliation: Carnegie Mellon University, ISTC-EC
+ * Date: 11/5/2012
+ */
+
+************************
+Operate the Matlab Files
+************************
+
+---------------
+Training Models
+---------------
+istcTrain
+
+-----------------------------
+Vision Confusion Matrix Excel
+-----------------------------
+confusion ({'coke.mov'; 'apple.mov'}, models, cls. false/true)
+	offlineDetector.m
+
+--------------------
+All Confusion Matrix
+--------------------
+BNxls2mat.m
+	confusion_matrix.mat
+
+------------------
+Recognition Engine
+------------------
+lazyObjRecognizer
+	istcLoad.m		
+	confusion_matrix.mat
+	normalizeBNmat.m
+	evalFrame.m
+		my_find_exemp.m
+			get_default_mining_params_video.m
+		bayesNet.m
+finder.m (* old version. won't work properly now *)
+	findObj.m
+
+---------------------
+Functionality Testing
+---------------------
+//open camera, and show results
+istcTest
+
+----------
+Parameters
+----------
+evalFrame.m
+my_find_exemp.m
+get_default_mining_params.m
+

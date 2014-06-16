@@ -1,0 +1,168 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{subfigure}
+\oddsidemargin0cm
+\topmargin-2cm     %I recommend adding these three lines to increase the
+\textwidth16.5cm   %amount of usable space on the page (and save trees)
+\textheight23.5cm
+
+
+\renewcommand{\thesubsection}{Q \thesection.\arabic{subsection}}
+
+\def\subsubsection{\@startsection{subsubsection}{3}{\z@}{0ex plus 0ex minus 0ex}{1.5ex plus .2ex}{\normalsize\bf}}
+\begin{document}
+
+\medskip                        % Skip a "medium" amount of space
+                                % (latex determines what medium is)
+                                % Also try: \bigskip, \littleskip
+
+\begin{center}                  % Center the following lines
+{\Large 16-720: Computer Vision Assignment4, Fall 2012 } \\
+Fanyi Xiao \\
+francis9012@gmail.com  \\
+10/24/2012 \\
+\end{center}
+\section{Warmup: Harris Corners and SIFT Matches}
+\subsection{}
+By default, we choose the parameter of $\sigma_{win}$, $\sigma_{grad}$ and $K$ to be 0.5, 0.5 and 0.04 respectively. The cornerness map and the top 500 corners are shown in Figure \ref{q11}.
+
+
+
+\subsection{}
+In this section, we tune the parameter $\sigma_{win}$, $\sigma_{grad}$ and $K$ to see the effects of different parameters in this function.\\
+$\sigma_{grad}$: this parameter refers to the deviation used in the gaussian smoothing before calculating the image gradient. Given too large $\sigma_{grad}$ will leads to quite smooth image and thus smoothed gradient with smaller magnitude. While too small $\sigma_{grad}$ leads to large gradient magnitude with some noise. The results of tuning the parameter $\sigma_{grad}$ is shown in the Figure \ref{q21grad}.\\
+$\sigma_{win}$: this parameter controls the deviation of gaussian weighting of the template. If this parameter is small, then the Harris detector will put more emphasis on the near neighbors while considering broader neighbors if it is large. The illustration of the effect of parameter $\sigma_{win}$ is shown in Figure \ref{q21win}. Note the purple circles in the Figure \ref{q21win}, the difference of tuning the $\sigma_{win}$ can be explained as large $\sigma_{win}$ value encourages the Harris detector to consider more about the farther neighborhood instead of just looking at near neighbors.\\
+$k$: the parameter controls the weight between two terms, if it is set to be very small, then we lost the constraint that two terms must be as close as possible which leads to the situation we pick up edges as corners; On the other hand, if we set it to be too large, the functionality of the first term is then swiped out which means we may pick up points with small magnitude on both direction.
+
+\subsection{}
+We have implemented the function \textsf{[matches] = matchsift(D1,D2,t)} which helps us to calculate the correct correspondences between feature points in two images. D1 and D2 refer to keypoints in two images and t refers to the acceptance ratio between the distances to the nearest neighbor and the second nearest neighbor.
+
+
+\section{RANSAC Homography Estimation}
+\begin{figure}
+\centering
+\includegraphics[width=7cm,height=5cm]{q11_cornerness.pdf}
+\includegraphics[width=7cm,height=5cm]{q11_points.pdf}
+\caption{The left image is the cornerness map of the image \textsf{wave.jpg}, while the right one is the top 500 Harris points extracted from the same image} \label{q11}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=7cm,height=5cm]{q12_sigma_grad_0p01.pdf}
+\includegraphics[width=7cm,height=5cm]{q12_sigma_grad_0p5.pdf}
+\caption{The left image is applied with $\sigma_{grad}=0.01$ while the right one is with $\sigma_{grad}=5$} \label{q21grad}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=7cm,height=5cm]{q12_sigma_win.jpg}
+\caption{The comparison of results setting $\sigma_{win}$ to be 5 and 0.01, the red dots are Harris points extracted by setting $\sigma_{win}$ as 0.01 while the green crosses are extracted setting $\sigma_{win}$ to be 5} \label{q21win}
+\end{figure}
+
+
+\subsection{}
+The function \textsf{[bestH, inliers] = ransacH2to1(keypoints1, keypoints2, matches)} is used to compute the RANSAC solution of a homography estimation. The algorithm follows the description in the document of homework4. We use the provided \textsf{computeH\_norm.m} to compute the homography matrix for numerical stability.
+
+\subsection{}
+We include the visualization of five results in Figure \ref{q22}.
+
+\begin{figure}
+\centering
+\includegraphics[width=7cm,height=5cm]{q22_1.pdf}
+\includegraphics[width=7cm,height=5cm]{q22_2.pdf}
+\includegraphics[width=7cm,height=5cm]{q22_3.pdf}
+\includegraphics[width=7cm,height=5cm]{q22_4.pdf}
+\includegraphics[width=7cm,height=5cm]{q22_5.pdf}
+\caption{The results of our RANSAC homography estimation on five pairs of images} \label{q22}
+\end{figure}
+
+\subsection{}
+Because the homography requires at least 4 pairs of point correspondences, instead of sampling minimum set uniformly, we could actually enforce some kind of priors into the selection of minimum sample set. As inspired by \cite{toldo2008robust}, we could assume the conditional distribution of selecting minimum set as
+$$P(x_j|x_i)=\begin{cases} \frac{1}{Z}exp-\frac{||x_j-x_i||^2}{\sigma^2}, &  x_j{\neq}x_i
+\\ 0, &  x_j=x_i \end{cases}$$
+Where we tend to find out some points which are close to each other. The underlying assumption is that the many outliers on different planes may not likely to cluster into image areas. Thus, we have higher probability to draw a minimum sample set with elements that are consistent with each other.
+
+
+
+\subsection{}
+There is a relation between variables $T, \gamma, \tau, n$ as
+$$T=\frac{log\tau}{log(1-\gamma^n)}$$
+where T is the number of iterations, $\gamma$ is the percentile of inliers over all points (here refers to correspondences), $\tau$ is the probability of failing to find a ``good" solution (which means finding a solution with inlier percentage of $\gamma$), and n denotes the minimum number of points that could be used to obtain an exact solution. So, in order to obtain a solution with 20\% inliers with a failure probability lower than 0.01, we should choose our T to be at least $\frac{\log0.01}{log(1-0.2^4)}=1249$ iterations. Increasing the T would thus reduce the probability of failure ($\tau$) or increase the percentage of inliers we can found in T iterations ($\gamma$), and vice versa. On the other hand, increasing the $\tau$ while fixing T will result in the increasing of $\gamma$ which is the percentage of inliers. Also, if $\gamma$ is fixed, increasing $\tau$ results in decreasing of T. All the results above are very intuitive which reflects kind of trade-off between these three variables.\\
+In the specific scenario of homography estimation, increasing the $\epsilon$ leads to more correspondences being eligible to be included in the consensus set which finally leads to more inliers in our estimated homography. The results of using different $\epsilon$ can be seen in Figure \ref{q24}.
+\begin{figure}
+\centering
+\includegraphics[width=7cm,height=5cm]{q24_1.pdf}
+\includegraphics[width=7cm,height=5cm]{q24_2.pdf}
+\caption{The left image is obtained using $\epsilon=0.1$ while the right one has $\epsilon=0.001$} \label{q24}
+\end{figure}
+
+
+\section{Towards Multiple Planes}
+\subsection{}
+The reason why the Sequential RANSAC would be a sub-optimal solution is as follows: assuming that there are two ``ground-truth" dominant consensus set A and B in our data and the set A is larger than B. Denote the intersection of the set A and B as $A{\bigcap}B$ and a subset of B which equals $B-A{\bigcap}B$ as $\bar{B}$. In the Sequential RANSAC, we would first pick up the larger consensus set A and remove it from our data. Then, suppose there is a set C which is not consensus with $A{\bigcap}B$ but is consensus with $\bar{B}$, then the second set being picked up will be $C\bigcap\bar{B}$ rather than the larger consensus set B.
+
+\subsection{}
+The results of the function \textsf{[Hs, inliers] = sequentialRANSAC(keypoints1, keypoints2, matches)} is shown in the Figure \ref{q33}.
+\begin{figure}
+\centering
+\includegraphics[width=11cm,height=4cm]{q33_1.pdf}
+\includegraphics[width=11cm,height=4cm]{q33_2.pdf}
+\includegraphics[width=11cm,height=4cm]{q33_3.pdf}
+\includegraphics[width=11cm,height=4cm]{q33_4.pdf}
+\includegraphics[width=11cm,height=4cm]{q33_5.pdf}
+\caption{The results of our Sequential RANSAC multiple homography estimation on five pairs of images} \label{q33}
+\end{figure}
+
+
+\subsection{}
+There are two pieces of criteria we follow to determine whether or not to terminate the Sequential RANSAC process. The first one is to calculate the ratio between the size of largest consensus set in this iteration and the size of the whole set as $d$, compare it with our predefined value $\gamma$, if $d<\gamma$, then we terminate the Sequential RANSAC process. The reason for this is just not to select a consensus set which has too fewer points in it although it is the best consensus set in current iteration, because it is quite possible that these points are gross outliers in the image. However, it is also possible this simple criteria will fail if there are too many small planes in the image which are then considered outliers and filtered out. The second criteria is that we terminate when the iteration exceeds 3. In practice, this empirically set iteration number works pretty well.
+
+\section{Extra Credits}
+\subsection{J-Linkage}
+Although I have implemented a version of J-linkage but I don't have enough time to debug it, so, we may not present it here...
+\subsection{Stress Testing RANSAC}
+In this section, we have tried to test the RANSAC method in the robustness w.r.t. both the correspondence outliers and noises. For this reason, we have written two functions called \textsf{generate\_outliers} and \textsf{generate\_noise} to add difficulties for RANSAC. The mechanism of adding outliers and adding noises is fairly easy. To add some outliers to the corresponding pairs, we just put some non-sensible point correspondences between key-points in two images. While for noise generation, we have made use of the MATLAB function \textsf{awgn(signal,SNR)} to generate some gaussian white noise with Signal-Noise Ratio as parameter. \\
+To qualitatively show the results of adding outliers as well as adding noises, we have conducted some experiments to tune the parameter of outlier/noise generation while keeping other factors fixed. Firstly, we fix the SNR in the noise generation and see the effects of ratio of outliers. The comparison of setting outlier ratio (the ratio between outlier correspondences and correct correspondences) as 0.1 and 0.8 is shown in Figure \ref{ex2outlier} in which we can observe that the RANSAC method is fairly robust to outlier correspondences, even though we have added 80\% of outlier correspondences to the ``ground-truth" data, RANSAC is still able to find the correct homography correspondences.\\
+On the other hand, if we tune the parameter SNR of noise while fixing the ratio of outlier, things become not such good. We have shown one result of our experiments tuning SNR from 100 to 20 which increase the ratio of noise in the signal in Figure \ref{ex2noise}. As can be seen, the homography estimation results become quite bad if we increase the ratio of noise in our keypoints data (the pink circle in Figure \ref{ex2noise} shows out the incorrect correspondences). \\
+To quantitatively evaluate the results of tuning the parameters, we have measured the fitting error in the best consensus set found by RANSAC with different value of outlier ratio and SNR. To illustrate the results quantitatively, we have drawn the picture in Figure \ref{ex2quan} as the parameter v.s. fitting error.\\
+Indeed, the above results are explainable as if we think about the mechanism of RANSAC method: it iteratively picks out an exact solution to a minimum set of samples and calculate the ratio of points agree with that solution to find out the solution that most points agree with, so if we just add outliers into the sample, we could just increase the iteration due to the decrease of the ratio of inliers. It will still give us a consensus set as large as possible. But if we add noise into points on which we rely to compute the exact solution, things become bad as we cannot compute a ``correct" solution which we use as basis to form the consensus set which leads to the failure of finding out a real reliable homography. All in one, RANSAC is unable to tackle kind of ``random noise" but is very good at tackling the ``gross outliers".\\
+
+
+
+
+\begin{figure}
+\centering
+\includegraphics[width=11cm,height=4cm]{ex2_outlier1.pdf}
+\includegraphics[width=11cm,height=4cm]{ex2_outlier2.pdf}
+\caption{The comparison of results with outlier ratio as 0.1(up) and 0.8(bottom), the SNR of noise is set to be 50} \label{ex2outlier}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=11cm,height=4cm]{ex2_noise1.pdf}
+\includegraphics[width=11cm,height=4cm]{ex2_noise2.jpg}
+\caption{The comparison of results with noise SNR as 100(up) and 20(bottom), the ratio of outliers is set to be 0.1} \label{ex2noise}
+\end{figure}
+
+
+\begin{figure}
+\centering
+\includegraphics[width=11cm,height=4cm]{ex2_quan1.jpg}
+\includegraphics[width=11cm,height=4cm]{ex2_quan2.pdf}
+\caption{Quantitative result of fitting error w.r.t parameters of outlier ratio (up) and SNR (bottom)} \label{ex2quan}
+\end{figure}
+
+
+\bibliographystyle{plain}
+\bibliography{mybib}
+
+\end{document}
+
+
+
+
+
+

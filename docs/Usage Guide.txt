@@ -1,0 +1,81 @@
+/* 
+ * Project: Multi Modal First Person Sensing (MMFPS)
+ * Author: Qifan Hu (qhu@andrew.cmu.edu)
+ * Affiliation: Carnegie Mellon University, ISTC-EC
+ * Date: 12/12/2012
+ */
+
+********************************
+When using it for the first time
+********************************
+See Installation guide
+Make sure the project path can be found by ROS
+To verify: $roscd mmfpspkg
+Make sure to rebuild: rosmake --pre-clean mmfpspkg
+roscd mmfpspkg/node_object: make clean; make all
+
+*********************************
+If using the pre-built MMFPS VM:
+*********************************
+First update source in git: 
+      git stash
+      git pull
+Enable the usb camera in Virtualbox:
+       Devices-->USB Devices-->[Click on the appropriate device]
+Test the camera with cheese. In a term type:
+     cheese
+Plug in a microphone and test with sound recorder
+----------
+How to use
+----------
+To compile: $rosmake mmfpspkg
+To run: $roslaunch mmfpspkg xxx.launch
+* there are many launch files, run the ones that you need
+* check out path /mmfps/mmfpspkg/launch for details
+* if you want to run the whole system, use system.launch
+To kill: $^C
+To run single executable: $roscore
+	in another terminal: $roscd mmfpspkg/bin \\\ $./filename
+
+***at current stage, the system is not yet fully implememted
+To run:
+	Terminal 1: $roscd mmfpspkg/node_object; sh runAll.sh
+	Terminal 2: $roslaunch mmfpspkg current.launch (keep this window visible
+		    as it provides feedback during speech recognition).
+	Terminal 3: $rosrun image_view image_view image:=/camera/image_raw
+	Terminal 4: You might want the matlab progress: tail -f mmfpspkg/data_tmp/vision.log
+
+To use:
+* Speak 'Intelligentsia' to wake the system up. You should see in Terminal 2 that the trigger word
+was detected.
+* Point the camera to an object of interest
+* Say one of the commands about the object of interest (e.g "Review Bottle" or "Information Cap")
+* The list of commands you can use are: Information, Review, Option
+* The list of objects you can use are:  adapter airborne boot bottle cap disk halls 
+      	      	      	      	  	powder toy tumbler tupperware umbrella
+
+------
+Issues
+------
+*ROS nodes are pretty compute intensive. Make sure to kill them all when not using.
+*When killing the runAll process, MATLAB processes stay active. You need to kill 
+ those manually by calling: pkill MATLAB
+*Not all cameras work on this machine. Troubleshoot with cheese before running the system.
+
+
+-------------------
+Major Folders/Files
+-------------------
+1. mmfpspkg
+	the main folder, which contains all the library and 
+2. mmfpspkg/launch folder:
+	contains all launch files
+	one for one specific part
+3. mmfpspkg/include
+	contains external common headers
+4. mmfpspkg/library
+	contains all library files
+5. mmfpspkg/node_xxx
+	contains codes for each components
+6. code
+	codes for the past version of MMFPS, leave it for record

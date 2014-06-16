@@ -1,0 +1,9 @@
+#!/bin/sh
+
+export BIBINPUTS=../bibtex/bib//
+
+pdflatex ijcai13.tex
+bibtex ijcai13
+pdflatex ijcai13.tex
+pdflatex ijcai13.tex
+

@@ -1,0 +1,51 @@
+**I checked the following websites for developing some modules in the system
+**by Qifan Hu (qhu@andrew.cmu.edu)
+
+Linux shell development
+	http://www.faqs.org/docs/abs/HTML/index.html
+
+Gtk+ development in C++
+	http://developer.gnome.org/gtk-tutorial/2.90/
+
+OpenCV in Gtk+
+	http://www.gtkforums.com/viewtopic.php?t=5743
+
+OpenCV development in C
+	http://www.cs.iit.edu/~agam/cs512/lect-notes/opencv-intro/opencv-intro.html
+	http://www.pages.drexel.edu/~nk752/tutorials.html
+
+TinyXML for XML development in C++
+	http://www.grinninglizard.com/tinyxml/
+
+Socket programming in C
+	http://www.binarytides.com/blog/beginners-guide-to-socket-programming-in-c-on-linux/ 
+	http://tldp.org/LDP/LG/issue74/tougher.html
+
+Socket programming in Andorid
+	http://thinkandroid.wordpress.com/2010/03/27/incorporating-socket-programming-into-your-applications/ 
+	http://stackoverflow.com/questions/5135438/example-android-bi-directional-network-socket-using-asynctask
+
+Multi-threading in C
+	http://randu.org/tutorials/threads/
+
+STL in C
+	http://www.cs.brown.edu/~jak/proglang/cpp/stltut/tut.html
+
+Sphinx development in Java
+	http://cmusphinx.sourceforge.net/wiki/tutorial
+	http://cmusphinx.sourceforge.net/sphinx4/
+
+Sphinx Language Model online tool
+	http://www.speech.cs.cmu.edu/tools/lmtool-new.html
+
+ROS development
+	http://ros.org/wiki/ROS/Tutorials
+
+ROS with OpenCV
+	http://siddhantahuja.wordpress.com/2011/07/20/working-with-ros-and-opencv-draft/
+
+ROS with PocketSphinx
+	http://www.ros.org/wiki/pocketsphinxut
+	http://www.pirobot.org/blog/0022/
+	http://forums.trossenrobotics.com/showthread.php?5543-installing-pocketshpinx-and-festival
+	http://code.google.com/p/ros-pocketsphinx-speech-recognition-tutorial/wiki/Tutorial

@@ -1,0 +1,4 @@
+# Talk to Denver to get active License key
+# Copy IPP program to ~/src (talk to Denver or Fanyi)
+# sudo install.sh
+
