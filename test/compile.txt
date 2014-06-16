@@ -1,0 +1,1 @@
+g++ -o hub faceLibHub.cpp ../lib/tinyxml.cpp ../lib/tinyxmlparser.cpp ../lib/tinyxmlerror.cpp ../lib/tinystr.cpp

@@ -1,0 +1,151 @@
+20_37_38
+	S: information airborne
+	V: airborne
+BN: information airborne
+
+20_37_54
+	S: option airborne
+	V: cap
+BN: option airborne
+
+20_38_01
+	S: option umbrella
+	V: airborne
+BN: option airborne
+--
+20_38_12
+	S: option powder
+	V: airborne
+BN: option airborne
+
+20_38_18
+	S: option umbrella
+	V: airborne
+BN: option airborne
+
+20_38_25
+	S: review tupperware
+	V: airborne
+BN: review airborne
+--
+20_38_33
+	S: information airborne
+	V: airborne
+BN: information airborne
+
+20_38_39
+	S: option airborne
+	V: airborne
+BN: option airborne
+
+20_38_45
+	S: review airborne
+	V: airborne
+BN: review airborne
+--
+20_39_03
+	S: information airborne
+	V: none
+BN: information airborne
+
+20_39_11
+	S: option airborne
+	V: none
+BN: option airborne
+
+20_39_18
+	S: review airborne
+	V: airborne
+BN: review airborne
+--
+20_39_27
+	S: option airborne
+	V: none
+BN: option airborne
+
+20_39_33
+	S: option airborne
+	V: airborne
+BN: option airborne
+
+20_39_39
+	S: review umbrella
+	V: airborne
+BN: review airborne
+--
+20_39_52
+	S: information airborne
+	V: airborne
+BN: information airborne
+
+20_40_00
+	S: option airborne
+	V: airborne
+BN: option airborne
+
+20_40_06
+	S: information halls
+	V: airborne
+BN: information airborne
+--
+20_40_14
+	S: option umbrella
+	V: umbrella
+BN: option umbrella
+
+20_40_33
+S: option cap
+	V: airborne
+BN: option airborne
+
+20_40_21
+	S: review tumbler
+	V: umbrella
+BN: review umbrella
+--
+20_40_41
+	S: information airborne
+	S: option airborne
+	V: airborne
+BN: information airborne
+
+20_40_46
+	S: option airborne
+	V: airborne
+BN: option airborne
+
+20_40_50
+	S: review airborne
+	V: airborne
+BN: review airborne
+--
+20_41_14
+	S: information airborne
+	V: airborne
+BN: information airborne
+
+20_41_21
+	S: option adapter
+	V: airborne
+BN: option airborne
+
+20_41_27
+	S: option umbrella
+	V: airborne
+BN: option airborne
+--
+20_41_36
+	S: option tumbler
+	V: adapter
+BN: option adapter
+
+20_41_47
+	S: option airborne
+	V: adapter
+BN: option adapter
+
+20_41_42
+	S: review airborne
+	V: adapter
+BN: review adapter
+--

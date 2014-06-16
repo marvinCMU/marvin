@@ -1,0 +1,39 @@
+<!--xml-->
+<launch>
+
+  <!-- global settings -->
+ <!-- <param name="talkbackActive" type="bool" value="true" /> -->
+  <param name="faceActive" type="bool" value="true" />
+  <param name="locationActive" type="bool" value="true" />
+  <param name="objectActive" type="bool" value="true" />
+  <param name="retailActive" type="bool" value="true" />
+
+  <param name="speechLibPath" type="string" value="$(find mmfpspkg)/library/lib_speech/"/>
+  <param name="faceLibPath" type="string" value="$(find mmfpspkg)/library/lib_face/" />
+  <param name="locationLibPath" type="string" value="$(find mmfpspkg)/library/lib_location/"/>
+  <param name="retailLibPath" type="string" value="$(find mmfpspkg)/library/lib_retail/"/>
+  <param name="bnetLibPath" type="string" value="$(find mmfpspkg)/library/lib_bnet/"/>
+  <param name="guiLibPath" type="string" value="$(find mmfpspkg)/library/lib_gui/"/>
+  <param name="tmpLibPath" type="string" value="$(find mmfpspkg)/data_tmp/"/>
+
+  <!-- object recognition nodes -->
+  <node name="retail" pkg="mmfpspkg" type="fakeExemplar" output="screen" 
+	args= "_image_transport:=compressed">
+  </node>
+  
+  <!-- location recognition nodes -->
+  
+  
+  <!-- speech recognition nodes -->
+  <node name="dialogManager" pkg="mmfpspkg" type="DialogManager.py" output="screen">
+  </node>
+
+
+  <!-- bayesian network nodes -->
+  
+
+  <!-- gui nodes -->
+
+
+</launch>
+

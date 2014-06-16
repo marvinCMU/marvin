@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# initialize environment
+#./init
+
+# run gui
+#./gui &
+
+# run vision system
+/usr/local/MATLAB/R2012a/bin/matlab -nodesktop -nosplash -r "simp_object_detect" #> /home/mmfps/mmfps/mmfpspkg/data_tmp/vision.log &
+#echo $! > matlab_pid 
+
+# run speech recognition system
+#java -jar vd.jar

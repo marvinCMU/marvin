@@ -1,0 +1,136 @@
+20_43_27
+	S: information airborne
+	V: halls
+	BN: information halls
+
+20_43_42
+	S: option airborne
+	V: powder
+	BN: option airborne
+
+20_43_48
+	S: option umbrella
+	V: powder
+	BN: option umbrella
+--
+20_44_06
+	S: information tumbler
+	V: boot
+	BN: information tumbler
+
+20_44_12
+	S: option boot
+	V: boot
+	BN: option boot
+
+20_44_18
+	S: option halls
+	V: boot
+	BN: option boot
+--
+20_44_29
+	S: option boot
+	V: boot
+	BN: option boot
+
+20_44_35
+	S: option boot
+	V: boot
+	BN: option boot
+
+20_44_40
+	S: review boot
+	V: boot
+	BN: review boot
+--
+20_44_49
+	S: information boot
+	V: none
+	BN: information boot
+
+20_44_55
+	S: option boot
+	V: none
+	BN: option boot
+
+20_44_59
+	S: review boot
+	V: none
+	BN: review boot
+--
+20_45_13
+	S: information bottle
+	V: disk
+	BN: information disk
+
+20_45_30
+	S: option umbrella
+	V: disk
+	BN: option disk
+
+20_45_37
+	S: review adapter
+	V: disk
+	BN: review adapter
+--
+20_45_51
+	S: information bottle
+	V: boot
+	BN: information bottle
+
+20_45_56
+	S: option tumbler
+	V: boot
+	BN: option tumbler
+
+20_46_01
+	S: option halls
+	V: boot
+	BN: option boot
+--
+20_46_13
+	S: option tumbler
+	V: boot
+	BN: option tumbler
+
+20_46_19
+	S: option cap
+	V: boot
+	BN: option boot
+
+20_46_24
+	S: review bottle
+	V: boot
+	BN: review bottle
+--
+20_46_37
+	S: information bottle
+	V: boot
+	BN: information bottle
+
+20_46_42
+	S: option boot
+	V: boot
+	BN: option boot
+
+20_46_47
+	S: review boot
+	V: boot
+	BN: review boot
+--
+20_46_59
+	S: information boot
+	V: halls
+	BN: information halls
+
+20_47_15
+	S: option boot
+	V: adapter
+	BN: option adapter
+
+20_47_23
+	S: review boot
+	V: adapter
+	BN: review adapter
+
+

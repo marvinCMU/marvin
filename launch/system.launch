@@ -1,0 +1,79 @@
+<!--xml-->
+<launch>
+
+  <!-- global settings -->
+  <param name="talkbackActive" type="bool" value="true" />
+  <param name="faceActive" type="bool" value="true" />
+  <param name="locationActive" type="bool" value="true" />
+  <param name="objectActive" type="bool" value="true" />
+  <param name="retailActive" type="bool" value="true" />
+  <param name="dummyTestActive" type="bool" value="false" />
+  <param name="dummyTestVideoInEnable" type="bool" value="false" />
+  
+  <param name="speechLibPath" type="string" value="$(find mmfpspkg)/library/lib_speech/"/>
+  <param name="faceLibPath" type="string" value="$(find mmfpspkg)/library/lib_face/" />
+  <param name="locationLibPath" type="string" value="$(find mmfpspkg)/library/lib_location/"/>
+  <param name="retailLibPath" type="string" value="$(find mmfpspkg)/library/lib_retail/"/>
+  <param name="bnetLibPath" type="string" value="$(find mmfpspkg)/library/lib_bnet/"/>
+  <param name="guiLibPath" type="string" value="$(find mmfpspkg)/library/lib_gui/"/>
+  <param name="tmpLibPath" type="string" value="$(find mmfpspkg)/data_tmp/"/>
+
+  <!-- system param node -->
+  <node name="systemNode" pkg="mmfpspkg" type="systemNode" output="screen" >
+  </node>
+
+  <!-- camera node -->
+  <node ns="camera" pkg="uvc_camera" type="camera_node" name="camera" output="screen">
+    <param name="width" type="int" value="640" />
+    <param name="height" type="int" value="480" />
+    <param name="fps" type="int" value="30" />
+    <param name="frame" type="string" value="webcam" />
+    <param name="device" type="string" value="/dev/video0" />
+  </node>
+  
+  <!-- face recognition node -->
+  <node name="facer" pkg="mmfpspkg" type="face" output="screen" >
+    <param name="faceCascadePath" type="string" value="$(find mmfpspkg)/library/lib_face/haarcascades/haarcascade_frontalface_alt.xml"/>
+	<param name="leftEyeCascadePath" type="string" value="$(find mmfpspkg)/library/lib_face/haarcascades/haarcascade_mcs_lefteye.xml"/>
+	<param name="rightEyeCascadePath" type="string" value="$(find mmfpspkg)/library/lib_face/haarcascades/haarcascade_mcs_righteye.xml"/>
+	<param name="modelPath" type="string" value="$(find mmfpspkg)/library/lib_face/people/model.xml"/>
+	<param name="dataPath" type="string" value="$(find mmfpspkg)/library/lib_face/people"/>
+  </node>
+  <node name="faceCommander" pkg="mmfpspkg" type="FaceCommander.py" output="screen" >
+    <param name="lm" type="string" value="$(find mmfpspkg)/library/lib_face/face_speech.lm"/>
+    <param name="dict" type="string" value="$(find mmfpspkg)/library/lib_face/face_speech.dic"/>
+  </node>
+
+  <!-- object recognition nodes -->
+  <node name="retail" pkg="mmfpspkg" type="retail" output="screen" >
+  </node>
+  <node name="retailCommander" pkg="mmfpspkg" type="RetailCommander.py" output="screen" >
+    <param name="lm" type="string" value="$(find mmfpspkg)/library/lib_retail/retail_speech.lm"/>
+    <param name="dict" type="string" value="$(find mmfpspkg)/library/lib_retail/retail_speech.dic"/>
+  </node>
+  
+  <!-- location recognition nodes -->
+  
+  
+  <!-- speech recognition nodes -->
+  <node name="trigger" pkg="mmfpspkg" type="trigger.py" output="screen" >
+    <param name="lm" type="string" value="$(find mmfpspkg)/library/lib_speech/trigger.lm"/>
+    <param name="dict" type="string" value="$(find mmfpspkg)/library/lib_speech/trigger.dic"/>
+  </node>
+  <node name="dialogManager" pkg="mmfpspkg" type="DialogManager.py" output="screen">
+  </node>
+  <node name="soundplay" pkg="sound_play" type="soundplay_node.py" output="screen">
+  </node>
+  <node name="talkback" pkg="mmfpspkg" type="talkback.py" output="screen">
+  	<param name="voice" value="voice_don_diphone"/>
+  	<param name="wavepath" value="$(find mmfpspkg)/library/lib_speech/R2D2a.wav"/>
+  </node>
+
+  <!-- bayesian network nodes -->
+  
+
+  <!-- gui nodes -->
+
+
+</launch>
+

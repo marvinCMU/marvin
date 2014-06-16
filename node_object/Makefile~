@@ -1,0 +1,29 @@
+CFLAGSS := -Wall -Wno-unknown-pragmas -Wno-format -O3
+
+SRCSS := tinyxml.cpp tinyxmlparser.cpp tinyxmlerror.cpp tinystr.cpp ServerSocket.cpp Socket.cpp
+OBJSS := $(addsuffix .o,$(basename ${SRCSS}))
+
+all: init gui
+
+init: init.cpp
+	g++ -o init init.cpp
+
+gui: gui.cpp ${OBJSS}
+	gcc -o gui gui.cpp `pkg-config --libs --cflags gtk+-2.0 opencv` -lpthread ${OBJSS} 
+
+%.o: %.cpp
+	g++ -c ${CFLAGSS} $< -o $@
+
+dist:
+	bash makedistlinux
+
+clean:
+	-rm -f core ${OBJSS} gui init *.o
+
+depend:
+tinyxml.o: tinyxml.h tinystr.h
+tinyxmlparser.o: tinyxml.h tinystr.h
+tinyxmlerror.o: tinyxml.h tinystr.h
+ServerSocket.o: Socket.h
+Socket.o: Socket.h
+gui: readObject.h ServerSocket.h SocketException.h

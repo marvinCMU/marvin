@@ -1,0 +1,2 @@
+varying vec2 vTexCoord0;
+uniform sampler2D tex0;

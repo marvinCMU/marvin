@@ -1,0 +1,150 @@
+21_22_44
+	S: information boot
+	V: toy
+	BN: information toy
+
+21_22_51
+	S: option toy
+	V: none
+	BN: option disk
+
+21_23_02
+	S: option airborne
+	V: none
+	BN: option airborne
+--
+21_23_19
+	S: information toy
+	V: toy
+	BN: information toy
+
+21_23_26
+	S: option toy
+	V: cap
+	BN: option toy
+
+21_23_34
+	S: review boot
+	V: cap
+	BN: review cap
+--
+21_23_48
+	S: option halls
+	V: cap
+	BN: option cap
+
+21_23_55
+	S: option airborne
+	V: cap
+	N: option airborne
+
+21_24_29
+	S: review toy
+	V: toy
+	BN: review toy
+--
+21_24_40
+	S: information toy
+	V: toy
+	BN: information toy
+
+21_24_45
+	S: option toy
+	V: toy
+	BN: option toy
+
+21_24_48
+	S: review toy
+	V: toy
+	BN: review toy
+--
+21_24_54
+	S: information toy
+	V: toy
+	BN: information toy
+
+21_24_59
+	S: option toy
+	V: toy
+	BN: option toy
+
+21_25_02
+	S: review toy
+	V: toy
+	BN: review toy
+--
+21_25_08
+	S: information bottle
+	V: toy
+	BN: information toy
+
+21_25_13
+	S: option bottle
+	V: toy
+	BN: option toy
+
+21_25_18
+	S: review toy
+	V: toy
+	BN: review toy
+--
+21_25_28
+	S: information toy
+	V: toy
+	BN: information toy
+
+21_25_32
+	S: option toy
+	V: toy
+	BN: option toy
+
+21_25_37
+	S: review toy
+	V: toy
+	BN: review toy
+--
+21_25_43
+	S: information toy
+	V: toy
+	BN: information toy
+
+21_25_48
+	S: option toy
+	V: toy
+	BN: option toy
+
+21_25_53
+	S: review toy
+	V: toy
+	BN: review toy
+--
+21_26_03
+	S: information bottle
+	V: none
+	BN: information airborne
+
+21_26_09
+	S: option toy
+	V: none
+	BN: option disk
+
+21_26_14
+	S: review tumbler
+	V: none
+	BN: review airborne
+--
+21_26_49
+	S: information toy
+	V: toy
+	BN: information toy
+
+21_27_09
+	S: option bottle
+	V: toy
+	BN: option toy
+
+21_27_19
+	S: review boot
+	V: toy
+	BN: review toy
+--

@@ -1,0 +1,1 @@
+../../ros/facereco/facerec/denver_facedetector.hpp

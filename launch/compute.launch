@@ -1,0 +1,141 @@
+<!--xml-->
+<launch>
+
+  <!-- global settings -->
+ <!-- <param name="talkbackActive" type="bool" value="true" /> -->
+  <param name="faceActive" type="bool" value="true" />
+  <param name="locationActive" type="bool" value="false" />
+  <param name="objectActive" type="bool" value="true" />
+  <param name="retailActive" type="bool" value="true" />
+  <param name="dummyTestActive" type="bool" value="false" />
+  <param name="dummyTestVideoInEnable" type="bool" value="false" />
+  <param name="CloudServiceActive" type="bool" value="false" />
+
+  <!-- Number of exemplars to send to matlab: -->
+  <param name="bnet/numExemplarsToSend" type="int" value="400" />
+  <!-- Max number of results to send to GUI -->
+  <param name="bnet/numResultsToGet" type="int" value="10" />
+  <!-- SVM Threshold to instantiate exemplars in bnet -->
+  <param name="bnet/svmThreshold" type="double" value="0.85" />
+  <!-- Max time to wait for all callbacks to arrive -->
+  <param name="bnet/maxResultTime" type="int" value="10" />
+  <!-- Max time to wait for gui feedback to arrive -->
+  <param name="bnet/maxTrainTime" type="int" value="1" />
+  <!-- Whether or not to activate learning -->
+  <param name="bnet/enableLearning" type="bool" value="false" />
+
+  <param name="bnet/clearNumExemplars" type="int" value="400" />
+  <param name="bnet/mixedNumExemplars" type="int" value="800" />
+  <param name="bnet/unClearNumExemplars" type="int" value="1200" />
+
+  <param name="bnet/objectThreshold" type="double" value="0.0032" />
+
+  <param name="bnet/clearWinnerFactor" type="double" value="1.5" />
+  <param name="bnet/enableFace" type="bool" value="false" />
+
+
+  <param name="speechLibPath" type="string" value="$(find mmfpspkg)/library/lib_speech/"/>
+  <param name="faceLibPath" type="string" value="$(find mmfpspkg)/library/lib_face/" />
+  <param name="locationLibPath" type="string" value="$(find mmfpspkg)/library/lib_location/"/>
+  <param name="retailLibPath" type="string" value="$(find mmfpspkg)/library/lib_retail/"/>
+  <param name="bnetLibPath" type="string" value="$(find mmfpspkg)/library/lib_bnet/"/>
+  <param name="guiLibPath" type="string" value="$(find mmfpspkg)/library/lib_gui/"/>
+  <param name="tmpLibPath" type="string" value="$(find mmfpspkg)/data_tmp/"/>
+
+<!--	args= "_image_transport:=compressed">-->
+
+  <arg name="bag_data" default="false" />
+  <arg name="log_data" default="true" />
+  <arg name="fake_matlab" default="false" />
+  <arg name="playback" default="false" />
+  <arg name="location" default="true" />
+  <arg name="face_reco_active" default="false" />
+  <arg name="face_training_active" default="false" />
+
+<!-- location nodes -->
+<node name="locationSaver" pkg="mmfpspkg" type="location" output="screen"
+      args="_image_transport:=raw"
+      if="$(arg location)"/>
+
+
+<!-- Bagger -->
+ <node pkg="rosbag" type="record" name="message_bagger"
+       args="  /gui/feedback_result /trigger/output /retailCommander/output /faceCommander/output -b 0 -o $(find mmfpspkg)/node_logger/logs/messages"
+       if="$(arg bag_data)" />
+
+ <node pkg="rosbag" type="record" name="image_bagger"
+       args="  /gui/image_raw/ -b 0 -o $(find mmfpspkg)/node_logger/logs/images"
+       if="$(arg bag_data)" />
+
+
+  <!-- object recognition nodes -->
+  <node name="retail" pkg="mmfpspkg" type="fakeExemplar" output="screen"
+    args= "_image_transport:=raw" unless="$(arg fake_matlab)"/>
+
+
+  <node name="retail" pkg="mmfpspkg" type="fakeExemplarfakeMatlab" output="screen"
+    args= "_image_transport:=raw"   if="$(arg fake_matlab)"/>
+
+  <!-- face recognition node-->
+
+  <node name="faceDetector" pkg="mmfpspkg" type="faceDetect" output="screen"
+      args="_image_transport:=raw"
+    if="$(arg face_reco_active)" />
+
+
+
+  <node name="faceRecognizer" pkg="mmfpspkg" type="faceRecognize" output="screen"
+    if="$(arg face_reco_active)" />
+
+
+  <node name="faceTrainer" pkg="mmfpspkg" type="faceTrain" output="screen"
+    if="$(arg face_training_active)" />
+
+
+  
+  <!-- location recognition nodes -->
+  
+  
+  <!-- speech recognition nodes -->
+  <node name="dialogManager" pkg="mmfpspkg" type="DialogManager.py" output="screen">
+  </node>
+
+<!-- recognition photo sender node -->
+<!--  <node name = "recognitionInfo" pkg="mmfpspkg" type="reconInfo" output="screen">
+  </node>
+
+<node name="republishRecon" type="republish" pkg="image_transport" output ="screen" 
+      args="raw in:=/recognition/image compressed out:=/recognition/image_compressed"/>-->
+
+<node name = "retailResult" pkg="mmfpspkg" type="retailResult" output="screen">
+</node>
+
+  <!-- bayesian network nodes -->
+  <node name="bnet" pkg="mmfpspkg" type="bayesNet" output="screen">
+  </node>
+
+
+
+<node name="republishConfirm" type="republish" pkg="image_transport" output ="screen" 
+      args="raw in:=/bnet/face/confirmation compressed out:=/bnet/face/confirmation"/>
+
+
+
+<!--republish gui message-->
+<node name="republishRecieveGui" type="republish" pkg="image_transport" output ="screen" 
+      args="compressed in:=/gui/image_raw/repub raw out:=/gui/image_raw"
+      unless="$(arg playback)"/>
+
+
+<!-- logger -->
+  <node name="logger" pkg="mmfpspkg" type="logger" output="screen"
+       if="$(arg log_data)" />
+
+
+<!-- aws cloud service node 
+  <node name="awsCloudManager" pkg="mmfpspkg" type="backend_aws.py" output="screen">
+  </node>-->
+
+
+</launch>
+

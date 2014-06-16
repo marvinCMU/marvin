@@ -1,0 +1,9 @@
+<!--xml-->
+<launch>
+
+  <node name="recognizer" pkg="speech" type="recognizer.py" output="screen">
+    <param name="lm" value="$(find speech)/config/nav_commands.lm"/>
+    <param name="dict" value="$(find speech)/config/nav_commands.dic"/>
+  </node>
+  
+</launch>

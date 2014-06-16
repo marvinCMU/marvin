@@ -1,0 +1,92 @@
+<!--xml-->
+<launch>
+
+  <!-- global settings -->
+ <!-- <param name="talkbackActive" type="bool" value="true" /> -->
+<!--  <param name="faceActive" type="bool" value="true" />
+  <param name="locationActive" type="bool" value="true" />
+  <param name="objectActive" type="bool" value="true" />
+  <param name="retailActive" type="bool" value="true" />
+  <param name="dummyTestActive" type="bool" value="true" />
+  <param name="dummyTestVideoInEnable" type="bool" value="false" />
+  
+  <param name="speechLibPath" type="string" value="$(find mmfpspkg)/library/lib_speech/"/>
+  <param name="faceLibPath" type="string" value="$(find mmfpspkg)/library/lib_face/" />
+  <param name="locationLibPath" type="string" value="$(find mmfpspkg)/library/lib_location/"/>
+  <param name="retailLibPath" type="string" value="$(find mmfpspkg)/library/lib_retail/"/>
+  <param name="bnetLibPath" type="string" value="$(find mmfpspkg)/library/lib_bnet/"/>
+  <param name="guiLibPath" type="string" value="$(find mmfpspkg)/library/lib_gui/"/>
+  <param name="tmpLibPath" type="string" value="$(find mmfpspkg)/data_tmp/"/> -->
+  <param name="face/showDebugPics" type="bool" value="false" />
+
+
+  <node name="retailCommander" pkg="mmfpspkg" type="RetailCommander.py" output="screen" >
+    <param name="lm" type="string" value="$(find mmfpspkg)/library/lib_speech/general.lm"/>
+    <param name="dict" type="string" value="$(find mmfpspkg)/library/lib_speech/general.dic"/>
+  </node>
+
+  <!--face commander node  -->
+  <node name="faceCommander" pkg="mmfpspkg" type="FaceCommander.py" output="screen">
+    <param name="lm" type="string" value="$(find mmfpspkg)/library/lib_speech/general.lm"/>
+    <param name="dict" type="string" value="$(find mmfpspkg)/library/lib_speech/general.dic"/>
+  </node>
+
+
+ <!-- camera node -->
+<!-- <node ns="camera" pkg="node_camera_opencv" type="node_camera_opencv.py" name="camera" output="screen">
+    <param name="width" type="int" value="640" />
+    <param name="height" type="int" value="480" />
+    <param name="fps" type="int" value="30" />
+    <param name="frame" type="string" value="webcam" />
+    <param name="device" type="int" value=
+    "0" />
+  </node> -->
+
+<!-- camera node -->
+<!--<node ns="camera" pkg="mmfpkg" type = ""-->
+
+<!-- republish node
+<node name="republish_retail" type="republish" pkg="image_transport" output ="screen" 
+      args="raw in:=/guiNode/retail/image_raw compressed out:=/camera/retail/image_compressed"/>
+
+<node name="republish_face" type="republish" pkg="image_transport" output ="screen" 
+      args="raw in:=/guiNode/face/image_raw compressed out:=/camera/face/image_compressed"/>
+-->
+
+<node name="republishGui" type="republish" pkg="image_transport" output="screen"
+      args="raw in:=/gui/image_raw/original compressed out:=/gui/image_raw/repub"/>
+
+
+
+
+  <!-- speech recognition nodes -->
+  <node name="trigger" pkg="mmfpspkg" type="trigger.py" output="screen" >
+    <param name="lm" type="string" value="$(find mmfpspkg)/library/lib_speech/trigger.lm"/>
+    <param name="dict" type="string" value="$(find mmfpspkg)/library/lib_speech/trigger.dic"/>
+  </node>
+
+
+<node name= "guiNode" pkg="mmfpspkg" type="Gui" output="screen" 
+      args= "_image_transport:=compressed">
+</node>
+
+
+<!-- node to accept annotated pictures from the object recognizer
+  <node name="recognitionReceiver" pkg="mmfpspkg" type="reconReceive" output="screen"
+	args ="_image_transport:=compressed">
+  </node>-->
+
+<!--
+  <node name="talkback" pkg="mmfpspkg" type="talkback.py" output="screen">
+  	<param name="voice" value="voice_don_diphone"/>
+  	<param name="wavepath" value="$(find mmfpspkg)/library/lib_speech/R2D2a.wav"/>
+  </node>
+-->
+
+  <!-- bayesian network nodes -->
+  
+
+  <!-- gui nodes -->
+
+
+</launch>

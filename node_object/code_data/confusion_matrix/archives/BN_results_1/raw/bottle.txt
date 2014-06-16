@@ -1,0 +1,150 @@
+20_50_31
+	S: information bottle
+	V: bottle
+	BN: information bottle
+
+20_50_44
+	S: option bottle
+	V: bottle
+	BN: option bottle
+
+20_50_59
+	S: option halls
+	V: bottle
+	BN: option halls
+--
+20_51_09
+	S: information bottle
+	V: powder
+	BN: information bottle
+
+20_51_16
+	S: option bottle
+	V: bottle
+	BN: option bottle
+
+20_51_21
+	S: review bottle
+	V: bottle
+	BN: review bottle
+--
+20_51_28
+	S: information bottle
+	V: bottle
+	BN: information bottle
+
+20_51_35
+	S: option bottle
+	V: bottle
+	BN: option bottle
+
+20_51_40
+	S: option boot
+	V: powder
+	BN: option bottle
+--
+20_51_49
+	S: information bottle
+	V: bottle
+	BN: information bottle
+
+20_51_54
+	S: option bottle
+	V: bottle
+	BN: option bottle
+
+20_52_00
+	S: review bottle
+	V: bottle
+	BN: review bottle
+--
+20_52_08
+	S: information bottle
+	V: bottle
+	BN: information bottle
+
+20_52_15
+	S: review bottle
+	V: bottle
+	BN: review bottle
+
+20_52_21
+	S: review bottle
+	V: bottle
+	BN: review bottle
+--
+20_52_44
+	S: information bottle
+	V: powder
+	BN: information bottle
+
+20_52_50
+	S: option bottle
+	V: bottle
+	BN: option bottle
+
+20_52_56
+	S: review bottle
+	V: bottle
+	BN: review bottle
+--
+20_53_02
+	S: information bottle	
+	V: bottle
+	BN: information bottle
+
+20_53_07
+	S: option bottle
+	V: powder
+	BN: option bottle
+
+20_53_12
+	S: review bottle
+	V: powder
+	BN: review bottle
+--
+20_53_19
+	S: information bottle
+	V: powder
+	BN: information bottle
+
+20_53_25
+	S: option bottle
+	V: powder
+	BN: option bottle
+
+20_53_29
+	S: review bottle
+	V: powder
+	BN: review bottle
+--
+20_53_39
+	S: information bottle
+	V: bottle
+	BN: information bottle
+
+20_53_46
+	S: option bottle
+	V: bottle
+	BN: option bottle
+
+20_53_57
+	S: option boot
+	V: bottle
+	BN: option boot
+--
+20_54_05
+	S: information halls
+	V: powder
+	BN: information bottle
+
+20_54_11
+	S: option bottle
+	V: powder
+	BN: option bottle
+
+20_54_16
+	S: review bottle
+	V: powder
+	BN: review bottle
+--

@@ -1,0 +1,1 @@
+../../ros/bnet/include/pattern.h

@@ -1,0 +1,104 @@
+#include "ServerSocket.h"
+#include "SocketException.h"
+#include <string>
+#include <fstream>
+#include <iostream>
+#include <unistd.h>
+
+using namespace std;
+
+#define SRV_PORT 8080
+
+pthread_mutex_t serverLock = PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t serverCond = PTHREAD_COND_INITIALIZER;
+bool updateMsg = true;
+string phoneMsg = "Hello World World Hello World";
+
+void setServerMessage (string servertemp) {
+	pthread_mutex_lock(&serverLock) ;
+	updateMsg = true;
+	phoneMsg = servertemp;
+	pthread_mutex_unlock(&serverLock) ;
+	pthread_cond_signal(&serverCond);
+	cout << "<Socket> Server data updated"<< endl;
+}
+
+void *hostServer(void *arg) {
+	// Cast the parameter into what is needed
+	int *incoming = (int*)arg ;
+	
+	int threadNumber = 1;
+	int outputNumber = 1;
+
+	try {
+		// Create the socket
+		ServerSocket server ( SRV_PORT );
+		std::cout << "<Socket> Server socket at port " << SRV_PORT << " created\n";
+
+		while ( true ) {
+
+			ServerSocket androidSocket;
+			server.accept ( androidSocket );
+			cout << "<Socket> Thread no." << threadNumber << " connected" << endl;
+			threadNumber ++; outputNumber = 1; 
+			try {
+				while (true) {
+					pthread_mutex_lock(&serverLock);
+					while ( !updateMsg ) {
+						pthread_cond_wait(&serverCond, &serverLock);
+						// to wake this parameter: pthread_cond_signal(&serverCond);
+					}
+					androidSocket << phoneMsg;
+					updateMsg = false;
+					pthread_mutex_unlock(&serverLock);
+					//cout << "<Socket> Data " << outputNumber << " is transmitted" << endl;
+					outputNumber ++;
+				}
+
+			}
+			catch ( SocketException& ) {
+				cout << "<Socket> Thread no." << threadNumber << " disconnected" << endl;
+				pthread_mutex_unlock(&serverLock);		
+				pthread_mutex_lock(&serverLock);
+				updateMsg = true;
+				pthread_mutex_unlock(&serverLock);
+				pthread_cond_signal(&serverCond);	
+				cout << "<Socket> Service free" << endl;
+			}
+
+		}
+	} catch ( SocketException& e ) {}
+
+	return NULL;
+}
+
+
+int main ( int argc, char* argv[] ) {
+		pthread_t serverThread;
+		int threadStatus;
+		int value = 40;
+		char *sss = new char [10];
+		string servertemp;
+
+		pthread_mutex_init (&serverLock, NULL);
+		pthread_create(&serverThread, NULL, hostServer, &value) ;
+
+		// main stuff
+		for ( int i = 0; i < 100000 ; i++ ) {
+			sleep (1);
+			sprintf (sss, "%d", i);
+			string ssss(sss);
+
+			servertemp = "hello android with I " + ssss + "\n";
+
+			setServerMessage (servertemp);
+		}
+
+		pthread_join (serverThread, (void **)&threadStatus);
+		pthread_mutex_destroy (&serverLock) ;
+
+  return 0;
+}
+
+
+// to test, open a new terminal and type $ telnet localhost 8080

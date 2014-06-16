@@ -1,0 +1,51 @@
+#include <ros/ros.h>
+#include <string>
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include "std_msgs/String.h"
+
+ros::Publisher dummyTriggerPublisher;
+
+int main(int argc, char **argv){
+ using std::string;
+
+  ros::init(argc, argv, "dummyTester");
+  ros::NodeHandle nh;
+  dummyTriggerPublisher = nh.advertise< std_msgs::String >("trigger/output", 1000);
+  dummyRetailCommanderPublisher = nh.advertise< std_msgs::String >("retailCommander/output", 1000);
+
+  ros::Rate loop_rate(100);
+
+  int count = 0;
+  while (ros::ok())
+  {
+
+    std_msgs::String msg;
+
+    ROS_INFO("Press Enter to pass dummy Trigger");
+    getchar();
+
+    msg.data = string("marvin");
+    ROS_INFO("Trigger : %s", msg.data.c_str());
+
+    dummyTriggerPublisher.publish(msg);
+
+    ros::spinOnce();
+    loop_rate.sleep();
+
+    ROS_INFO("Press Enter to pass dummy commands");
+    getchar();
+
+    msg.data = string("tell me about this shampoo");
+    ROS_INFO("Command : %s", msg.data.c_str());
+
+    dummyTriggerPublisher.publish(msg);
+
+
+    count++;
+    //if (count > 0)
+    //  break;
+  }
+  return 0;
+}

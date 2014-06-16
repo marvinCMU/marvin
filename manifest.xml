@@ -1,0 +1,26 @@
+<package>
+  <description brief="mmfpspkg">
+     mmfpspkg
+  </description>
+  <author>Qifan Hu</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/mmfpspkg</url>
+
+  <depend package="rviz"/>
+  <depend package="roscpp"/>
+  <depend package="rospy"/>
+  <depend package="std_msgs"/>
+  <depend package="std_srvs"/>
+  <depend package="opencv2"/>
+  <depend package="cv_bridge"/>
+  <depend package="node_camera_opencv"/>
+  <depend package="geometry_msgs"/>
+  <depend package="image_transport"/>
+  <depend package="compressed_image_transport"/>
+<!--  <depend package="sound_play"/> -->
+  <rosdep name="gstreamer_pocketsphinx"/>
+
+</package>
+
+

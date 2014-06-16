@@ -1,0 +1,9 @@
+<!--xml-->
+<launch>
+
+  <node name="recognizer2" pkg="speech" type="recognizer2.py" output="screen">
+    <param name="lm" value="$(find speech)/config/robocup.lm"/>
+    <param name="dict" value="$(find speech)/config/robocup.dic"/>
+  </node>
+
+</launch>

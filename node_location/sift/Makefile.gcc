@@ -1,0 +1,29 @@
+CXX		= g++ -arch i386 #-pg
+
+
+#CFLAGS		= -O0
+#CFLAGS		= -O3 -mtune=native -msse3 -unroll-all-loops -fstrict-aliasing -ftree-loop-distribution -ftree-vectorizer-verbose=2
+CFLAGS		= -O3 -mtune=native -msse3 -unroll-all-loops -fstrict-aliasing -ftree-vectorizer-verbose=2
+
+CFLAGS		+= -g -Wall `pkg-config --cflags opencv`
+CXXFLAGS	= $(CFLAGS)
+LDFLAGS		= `pkg-config --libs opencv`
+
+TBB=1
+ifdef TBB
+CFLAGS		+= -DENABLE_TBB
+CXXFLAGS	+= -DENABLE_TBB
+LDFLAGS		+= -ltbb
+endif
+
+
+BIN		= img2key keydisp
+
+all:		$(BIN)
+
+$(BIN): %:  %.o
+	$(CXX) -o $@ $^ $(LDFLAGS) 
+	cp $(BIN) ~/Documents/Research/bin
+
+clean:;		rm -f $(BIN) gmon.out *.o *~
+

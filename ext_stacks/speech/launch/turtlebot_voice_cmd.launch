@@ -1,0 +1,13 @@
+<!--xml-->
+<launch>
+
+  <node name="recognizer" pkg="speech" type="recognizer.py">
+    <param name="lm" value="$(find speech)/config/voice_cmd.lm"/>
+    <param name="dict" value="$(find speech)/config/voice_cmd.dic"/>
+  </node>
+
+  <node name="voice_cmd_vel" pkg="speech" type="voice_cmd_vel.py" output="screen">
+    <remap from="cmd_vel" to="turtlebot_node/cmd_vel"/>
+  </node>
+
+</launch>

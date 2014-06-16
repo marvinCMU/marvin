@@ -1,0 +1,8 @@
+shampoo1_in_hand_1.bmp
+tell me review of this white bottle
+cleanser_in_hand_1.bmp
+tell me review of this blue bottle
+sharpener_in_hand_1.bmp
+tell me review of this brown squirrel
+cream_in_hand_1.bmp
+tell me review of this yellow object

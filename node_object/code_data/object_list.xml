@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<product obj="Adapter">
+		<name>Apple Adapter</name>
+		<color>White</color>
+		<price>USD 2.00</price>
+		<review>http://www.amazon.com/Adapter-Charger-Adaptor-Shuffle-Classic/dp/B0038HYPZS/ref=sr_1_1?ie=UTF8&amp;qid=1341254390&amp;sr=8-1&amp;keywords=apple+adaptor</review>
+		<option>http://www.amazon.com/s/ref=nb_sb_noss_2?url=search-alias%3Daps&amp;field-keywords=apple+adaptor</option>
+	</product>
+	<product obj="Airborne">
+		<name>Zesty Orange Airborne</name>
+		<color>Orange</color>
+		<price>USD 18.00</price>
+		<review>http://www.amazon.com/Airborne-Effervescent-Health-Formula-Orange/dp/B000WZI4WY/ref=sr_1_1?ie=UTF8&amp;qid=1341259459&amp;sr=8-1&amp;keywords=orange+airborne</review>
+		<option>http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&amp;field-keywords=orange+airborne</option>
+	</product>
+	<product obj="Boot">
+		<name>Zebra Boot</name>
+		<color>Black/White</color>
+		<price>USD 31.00</price>
+		<review>http://www.amazon.com/Natural-Steps-Zee-Boot-Toddler-Fuchsia/dp/B003MW0OKE/ref=sr_1_2?ie=UTF8&amp;qid=1341259571&amp;sr=8-2&amp;keywords=zebra+boot</review>
+		<option>http://www.amazon.com/s/ref=nb_sb_noss_2?url=search-alias%3Daps&amp;field-keywords=zebra+boot</option>
+	</product>
+	<product obj="Bottle">
+		<name>CMU Bottle</name>
+		<color>Red or Green</color>
+		<price>USD 11.00</price>
+		<review>http://www.amazon.com/Camelbak-Better-Bottle-Litre-Purple/dp/B0019D73XO/ref=sr_1_1?ie=UTF8&amp;qid=1341254813&amp;sr=8-1&amp;keywords=water+bottle</review>
+		<option>http://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&amp;field-keywords=water+bottle</option>
+	</product>
+	<product obj="Cap">
+		<name>CMU Cap</name>
+		<color>Red/Black</color>
+		<price>USD 15.00</price>
+		<review>http://www.amazon.com/Bobby-Abreu-2006-Game-Used/dp/B0076C3PS4/ref=amb_link_362879222_1?pf_rd_m=ATVPDKIKX0DER&amp;pf_rd_s=top-1&amp;pf_rd_r=37EBDE2975D9434483DC&amp;pf_rd_t=301&amp;pf_rd_p=1370476022&amp;pf_rd_i=cmu%20cap</review>
+		<option>http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&amp;field-keywords=cmu+cap</option>
+	</product>
+	<product obj="Disk">
+		<name>Movie Closer</name>
+		<color>White</color>
+		<price>USD 3.50</price>
+		<review>http://www.amazon.com/Closer-Poster-Roberts-Natalie-Portman/dp/B002S7CJOS/ref=sr_1_4?ie=UTF8&amp;qid=1341259775&amp;sr=8-4&amp;keywords=movie+closer</review>
+		<option>http://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&amp;field-keywords=movie+closer</option>
+	</product>
+	<product obj="Halls">
+		<name>Cherry Halls</name>
+		<color>Red</color>
+		<price>USD 8.40</price>
+		<review>http://www.amazon.com/Halls-Mentho-Lyptus-Cough-Suppressant-Cherry/dp/B000YLYG64/ref=sr_1_1?ie=UTF8&amp;qid=1341259814&amp;sr=8-1&amp;keywords=cherry+halls</review>
+		<option>http://www.amazon.com/s/ref=nb_sb_noss_2?url=search-alias%3Daps&amp;field-keywords=cherry+halls</option>
+	</product>
+	<product obj="Powder">
+		<name>Gold Bond Body Powder</name>
+		<color>Yellow</color>
+		<price>USD 22.00</price>
+		<review>http://www.amazon.com/Gold-Bond-Medicated-10-Ounce-Containers/dp/B001G7QSS4/ref=sr_1_2?ie=UTF8&amp;qid=1341259874&amp;sr=8-2&amp;keywords=gold+bond+powder</review>
+		<option>http://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&amp;field-keywords=gold+bond+powder</option>
+	</product>
+	<product obj="Toy">
+		<name>CMU Mascot</name>
+		<color>Black</color>
+		<price>USD 20.00</price>
+		<review>http://www.amazon.com/Hungry-Wolf-Mascot-Adult-Costume/dp/B000MDKLLS/ref=sr_1_fkmr0_1?ie=UTF8&amp;qid=1341259982&amp;sr=8-1-fkmr0&amp;keywords=cmu+mascot</review>
+		<option>http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&amp;field-keywords=cmu+mascot</option>
+	</product>
+	<product obj="Tumbler">
+		<name>CMU Tumbler</name>
+		<color>Red</color>
+		<price>USD 20.00</price>
+		<review>http://www.amazon.com/Thermos-16-Ounce-Vacuum-Insulated-Travel-Tumbler/dp/B003H3HQBI/ref=sr_1_9?ie=UTF8&amp;qid=1341260053&amp;sr=8-9&amp;keywords=tumbler</review>
+		<option>http://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&amp;field-keywords=tumbler</option>
+	</product>
+	<product obj="Tupperware">
+		<name>Tupperware Container</name>
+		<color>White/Blue</color>
+		<price>USD 11.00</price>
+		<review>http://www.amazon.com/Tupperware-Ideal-Little-Bowl-Set/dp/B00079PEKU/ref=sr_1_11?ie=UTF8&amp;qid=1341254901&amp;sr=8-11&amp;keywords=tupperware</review>
+		<option>http://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&amp;field-keywords=tupperware</option>
+	</product>
+	<product obj="Umbrella">
+		<name>CMU Umbrella</name>
+		<color>Red/Black</color>
+		<price>USD 20.00</price>
+		<review>http://www.amazon.com/Totes-Auto-Open-Close-Umbrella-Black/dp/B000W4XMLI/ref=sr_1_15?ie=UTF8&amp;qid=1341255013&amp;sr=8-15&amp;keywords=umbrella</review>
+		<option>http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&amp;field-keywords=umbrella</option>
+	</product>
+</root>

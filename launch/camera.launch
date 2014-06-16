@@ -1,0 +1,13 @@
+<!--xml-->
+<launch>
+  <node ns="mmfps" pkg="mmfpspkg" type="opencv_cam" name="opencv_cam" output="screen">
+    <param name="width" type="int" value="640" />
+    <param name="height" type="int" value="480" />
+    <param name="fps" type="int" value="30" />
+    <param name="frame" type="string" value="webcam" />
+    <param name="device" type="int" value="0" />
+  </node>
+
+
+</launch>
+

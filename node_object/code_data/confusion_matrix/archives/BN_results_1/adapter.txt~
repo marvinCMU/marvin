@@ -1,0 +1,135 @@
+20_31_34
+S: information adapter
+V: adapter
+BN: information adapter
+
+20_31_50
+S: option adapter
+V: disk
+BN: option adapter
+
+20_31_58
+S: review adapter
+V: disk
+BN: review adapter
+--
+20_32_08
+S: information adapter
+V: adapter
+BN: information adapter
+
+20_32_15
+S: option adapter
+V: umbrella
+BN: option umbrella
+
+20_32_22
+S: option umbrella
+V: umbrella
+BN: option umbrella
+--
+20_32_31
+S: information adapter
+V: disk
+BN: information adapter
+
+20_32_38
+S: option adapter
+V: disk
+BN: option adapter
+
+20_32_44
+S: information disk
+V: disk
+BN: information disk
+--
+20_32_54
+S: information adapter
+V: disk
+BN: information adapter
+
+20_33_02
+S: option adapter
+V: disk
+BN: option adapter
+
+20_33_08
+S: review adapter
+V: disk
+BN: review adapter
+--
+20_33_22
+S: information adapter
+V: adapter
+BN: information adapter
+
+20_33_29
+S: option adapter
+V: disk
+BN: option adapter
+
+20_33_34
+S: option boot
+V: disk
+BN: option disk
+--
+20_33_48
+S: information adapter
+V: cap
+BN: information adapter
+
+20_33_54
+S: option adapter
+V: cap
+BN: option adapter
+
+20_33_59
+S: review adapter
+V: airborne
+BN: review airborne
+--
+20_34_12
+S: information adapter
+V: umbrella
+BN: information umbrella
+
+20_34_19
+S: option adapter
+V: halls
+BN: option halls
+
+20_34_24
+S: review adapter
+V: halls
+BN: review halls
+--
+20_34_33
+S: information adapter
+V: none
+BN: information adapter
+
+20_34_40
+S: option adapter
+V: halls
+BN: option halls
+
+20_34_45
+S: review adapter
+V: none
+BN: review adapter
+--
+20_34_54
+S: information adapter
+V: disk
+BN: information adapter
+
+20_35_00
+S: option adapter
+V: disk
+BN: option adapter
+
+20_35_08
+S: review adapter
+V: disk
+BN: review adapter
+--

@@ -1,0 +1,28 @@
+<!--xml-->
+<launch>
+
+  <param name="speechTalkback" type="bool" value="false" />
+  <param name="speechLibPath" type="string" value="$(find mmfpspkg)/library/lib_speech/"/>
+
+  <node name="trigger" pkg="mmfpspkg" type="trigger.py" output="screen" >
+    <param name="lm" type="string" value="$(find mmfpspkg)/library/lib_speech/trigger.lm"/>
+    <param name="dict" type="string" value="$(find mmfpspkg)/library/lib_speech/trigger.dic"/>
+  </node>
+  <node name="retailCommander" pkg="mmfpspkg" type="RetailCommander.py" output="screen" >
+    <param name="lm" type="string" value="$(find mmfpspkg)/library/lib_retail/retail_speech.lm"/>
+    <param name="dict" type="string" value="$(find mmfpspkg)/library/lib_retail/retail_speech.dic"/>
+  </node>
+  <node name="faceCommander" pkg="mmfpspkg" type="FaceCommander.py" output="screen" >
+    <param name="lm" type="string" value="$(find mmfpspkg)/library/lib_face/face_speech.lm"/>
+    <param name="dict" type="string" value="$(find mmfpspkg)/library/lib_face/face_speech.dic"/>
+  </node>
+  <node name="dialogManager" pkg="mmfpspkg" type="DialogManager.py" output="screen">
+  </node>
+  <node name="soundplay" pkg="sound_play" type="soundplay_node.py" output="screen">
+  </node>
+  <node name="talkback" pkg="mmfpspkg" type="talkback.py" output="screen">
+  	<param name="voice" value="voice_don_diphone"/>
+  	<param name="wavepath" value="$(find mmfpspkg)/library/lib_speech/R2D2a.wav"/>
+  </node>
+
+</launch>

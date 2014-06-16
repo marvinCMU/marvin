@@ -1,0 +1,197 @@
+21_03_51
+	S: information airborne
+	V: disk
+	BN: information airborne
+
+21_04_02
+	S: option disk
+	V: disk
+	BN: option disk
+
+21_04_10
+	S: review disk
+	V: disk
+	BN: review disk
+--
+21_04_18
+	S: information disk
+	V: disk
+	BN: information disk
+
+21_04_24
+	S: option disk
+	V: disk
+	BN: option disk
+
+21_04_45
+	S: option halls
+	V: disk
+	BN: option halls
+--
+21_04_53
+	S: information tumbler
+	V: adapter
+	BN: information adapter
+
+21_04_57
+	S: review boot
+	V: adapter
+	BN: review adapter
+
+21_05_13
+	S: review toy
+	V: adapter
+	BN: review adapter
+--
+21_05_23
+	S: option tumbler
+	V: disk
+	BN: option disk
+
+21_05_30
+	S: option disk
+	V: disk
+	BN: option disk
+
+21_05_51
+	S: review boot
+	V: disk
+	BN: review disk
+--
+21_05_59
+	S: information bottle
+	V: disk
+	BN: information disk
+
+21_06_06
+	S: option adapter
+	V: disk
+	BN: option adapter
+
+21_06_17
+	S: review toy
+	V: disk
+	BN: review disk
+--
+21_06_20
+	S: information adapter
+	V: disk
+	BN: information adapter
+
+21_06_26
+	S: option disk
+	V: disk
+	BN: option disk
+
+21_06_30
+	S: review disk
+	V: adapter
+	BN: review adapter
+--
+21_06_38
+	S: information adapter
+	V: disk
+	BN: information adapter
+
+21_06_55
+	S: option disk
+	V: none
+	BN: option disk
+
+21_07_19
+	S: review tupperware
+	V: disk
+	BN: review disk
+--
+21_07_21
+	S: information disk
+	V: disk
+	BN: information disk
+
+21_07_27
+	S: option disk
+	V: disk
+	BN: option disk
+
+21_07_40
+	S: option halls
+	V: disk
+	BN: option halls
+--
+21_07_49
+	S: information disk
+	V: none
+	BN: information disk
+
+21_07_56
+	S: option disk
+	V: disk
+	BN: option disk
+
+21_08_01
+	S: review tumbler
+	V: disk
+	BN: review disk
+--
+21_08_10
+	S: information disk
+	V: disk
+	BN: information disk
+
+21_08_15
+	S: option disk
+	V: disk
+	BN: option disk
+
+21_08_20
+	S: review disk
+	V: disk
+	BN: review disk
+--
+21_08_28
+	S: information disk
+	V: disk
+	BN: information disk
+
+21_08_34
+	S: option disk
+	V: disk
+	BN: option disk
+
+21_08_38
+	S: review disk
+	V: disk
+	BN: review disk
+--
+21_08_47
+	S: information disk
+	V: disk
+	BN: information disk
+
+21_08_52
+	S: option disk
+	V: disk
+	BN: option disk
+
+21_08_59
+	S: option toy
+	V: disk
+	BN: option disk
+--
+21_09_23
+	S: information bottle
+	V: disk
+	BN: information disk
+
+21_09_29
+	S: option disk
+	V: none
+	BN: option disk
+
+21_09_33
+	S: option boot
+	V: none
+	BN: option boot
+--
+
+

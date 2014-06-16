@@ -1,0 +1,17 @@
+<package>
+  <description brief="speech">
+    speech Recognizer
+  </description>
+  <author>Qifan Hu</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/mmfps</url>
+  <depend package="rospy"/>
+  <depend package="std_msgs"/>
+  <depend package="geometry_msgs"/><!-- only needed for demo -->
+  <depend package="std_srvs"/>
+<!--  <depend package="sound_play"/> -->
+  <rosdep name="gstreamer_pocketsphinx"/>
+</package>
+
+

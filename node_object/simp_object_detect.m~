@@ -1,0 +1,128 @@
+addpath(genpath(pwd));
+display('Object detector initializing!');
+% initialization
+
+
+% parameters
+pwd = pwd();
+data_path = [pwd(1:end-11),'data_tmp/']
+ranked_list_filename = [data_path,'vision/ranked_exemplars.txt']
+
+
+package_path = '~/mmfps';
+%data_path = fullfile(package_path,'mmfpspkg','data_tmp');
+%ranked_list_filename = '/home/mmfps/mmfps/mmfpspkg/data_tmp/vision/ranked_exemplars.txt';
+
+vision_folder = fullfile(data_path,'vision');
+vision_processed_folder = fullfile(data_path,'vision_processed');
+detection_filename = 'fired_exemplars.txt';
+model_filename = 'new_models/bookstore_models.mat';
+mapping_filename = 'new_models/mapping.mat';
+sleeping_time = 0.2;
+
+params = esvm_get_default_params;
+
+max_min_ImgSize = 275; % the maximum pixel number for smaller dimension
+cross_exemplar_nms_thresh = 0.3;
+thresh = 0.9;
+
+
+load(model_filename);
+params.exemplar_matrix = gen_exemplar_matrix(models,params);
+load(mapping_filename);
+params.ranked_list_filename = ranked_list_filename;
+params.mapping = mapping;
+params.displayRankedList = 1;
+params.truncatedModels = 0;
+params.GPUacc = 1;
+
+display('Initilizing done, start scanning...');
+
+
+
+while 1
+    display('waiting for images...');
+    while 1
+        file_list = dir(vision_folder);
+        % purge forward and backward
+        val_idx = arrayfun(@(x)~strcmp(x.name,'.')&&~strcmp(x.name,'..'),file_list);
+        file_list = file_list(val_idx);
+        % check format
+        [ignore ignore format] = arrayfun(@(x)fileparts(x.name),file_list,'UniformOutput',false);
+        valid_idx = cellfun(@(x)isempty(regexp(x,'txt','match'))&&isempty(regexp(x,'TXT','match')),format);
+        file_list = file_list(valid_idx);
+        
+        
+        if ~isempty(file_list)
+            display('found vision file...');
+            break;            
+        end
+        pause(sleeping_time);
+    end
+
+    for i = 1:length(file_list)
+        img_filename = fullfile(vision_folder,file_list(i).name);
+        try
+            I = imread(img_filename);
+            delete(img_filename);
+            display('deleting vision file...');
+        catch
+            error('error in reading image file...\n');
+        end
+        
+        % reduce image size to speed up
+        if min(size(I,1),size(I,2)) > max_min_ImgSize
+            ratio = max_min_ImgSize/min(size(I,1),size(I,2));
+            I = imresize(I,ratio);
+        end
+        
+        params.precomputation = [];
+        tic
+        [rs,t] = esvm_detect_fast(I, models, params);
+        toc
+        
+        bboxes = cat(1,rs.bbs{:});
+        if isempty(bboxes)
+            fprintf('no objects detected...\n');
+            continue;
+        end
+        
+        calib_bboxes = esvm_calibrate_boxes(bboxes,betas);
+        calib_bboxes = esvm_nms(calib_bboxes,cross_exemplar_nms_thresh);
+        
+        % post processing for bbox
+        calib_bboxes(:,1:4) = calib_bboxes(:,1:4)./ratio;
+        
+        if isfield(params,'displayRankedList') && params.displayRankedList
+            display_bboxes = calib_bboxes(calib_bboxes(:,end)>thresh,:);
+            if isempty(display_bboxes)
+                fprintf(['no objects found above the threshold: ' num2str(thresh) '...\n']);
+            else
+                fired_models = params.mapping(display_bboxes(:,6));
+                fired_objs = cellfun(@(x)x.obj_name,fired_models,'UniformOutput',false);
+                [ignore IA IC] = unique(fired_objs,'first');
+                fired_objs = fired_objs(sort(IA,'ascend'));
+
+                fprintf('objs fired by esvm: ');
+                for k = 1:length(fired_objs)
+                    fprintf([fired_objs{k} '  ']);
+                end
+                fprintf('\n');
+            end
+        end
+        
+        dlmwrite(fullfile(vision_processed_folder,detection_filename),calib_bboxes);
+        fprintf('detection results written to disk...\n');
+        
+        
+%         % display detection results
+%         top_bbox = calib_bboxes(1,:);
+%         subplot_tight(1,2,1);
+%         imshow(I);
+%         plot_bbox(top_bbox);
+%         subplot_tight(1,2,2);
+%         imshow(models{top_bbox(:,6)}.exI);
+        
+
+    end
+end

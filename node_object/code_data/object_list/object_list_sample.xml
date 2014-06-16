@@ -1,0 +1,16 @@
+<root>
+	<product obj="">
+		<name></name>
+		<color></color>
+		<price></price>
+		<review></review>
+		<option></option>
+	</product>
+	<product obj="">
+		<name></name>
+		<color></color>
+		<price></price>
+		<review></review>
+		<option></option>
+	</product>
+</root>

@@ -1,0 +1,14 @@
+<!--xml-->
+<launch>
+
+  <!-- global settings -->
+  <param name="xxxRecog" type="bool" value="true" />
+  <param name="xxxLibPath" type="string" value="$(find mmfpspkg)/library/lib_xxx/" />
+
+  <!-- xxx recognition node -->
+  <node name="xxx" pkg="mmfpspkg" type="xxx" output="screen" >
+    <param name="localVar1" type="string" value="$(find mmfpspkg)/library/lib_xxx/file1.txt"/>
+	<param name="localVar2" type="string" value="$(find mmfpspkg)/library/lib_xxx/file2.txt"/>
+  </node>
+
+</launch>

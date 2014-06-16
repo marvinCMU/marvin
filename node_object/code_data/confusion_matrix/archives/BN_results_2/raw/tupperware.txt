@@ -1,0 +1,145 @@
+15_54_02
+S: option umbrella
+V: tupperware
+BN: option tupperware
+
+15_54_29
+S: information tupperware
+V: tupperware
+BN: information tupperware
+
+15_54_38
+S: information powder
+V: tupperware
+BN: information tupperware
+
+15_54_51
+S: information tupperware
+V: tupperware
+BN: information tupperware
+
+15_55_01
+S: information tupperware
+V: tupperware
+BN: information tupperware
+
+15_55_08
+S: option powder
+V: tupperware
+BN: option tupperware
+
+15_55_22
+S: information tupperware
+V: tupperware
+BN: information tupperware
+
+15_55_41
+S: information powder
+V: tupperware
+BN: information tupperware
+
+15_55_56
+S: option halls
+V: tupperware
+BN: option tupperware
+
+15_56_19
+S: option powder
+V: tupperware
+BN: option tupperware
+
+15_56_35
+S: option powder
+V: tupperware
+BN: option tupperware
+
+15_56_47
+S: option umbrella
+V: tupperware
+BN: option tupperware
+
+15_57_11
+S: option tupperware
+V: tupperware
+BN: option tupperware
+
+15_57_19
+S: option tumbler
+V: tupperware
+BN: option tumbler
+
+15_57_37
+S: option powder
+V: tupperware
+BN: option tupperware
+
+15_57_53
+S: option powder
+V: tupperware
+BN: option tupperware
+
+15_58_17
+S: option powder
+V: tupperware
+BN: option tupperware
+
+15_58_37
+S: option disk
+V: tupperware
+BN: option tupperware
+
+15_58_53
+S: option powder
+V: tupperware
+BN: option tupperware
+
+15_59_10
+S: option tupperware
+V: tupperware
+BN: option tupperware
+
+15_59_16
+S: review tumbler
+V: tupperware
+BN: review tumbler
+
+15_59_32
+S: option halls
+V: none
+BN: option airborne
+
+15_59_47
+S: option umbrella
+V: tupperware
+BN: option tupperware
+
+16_00_04
+S: option tumbler
+V: tupperware
+BN: option tumbler
+
+16_00_29
+S: option tumbler
+V: tupperware
+BN: option tumbler
+
+16_00_45
+S: review tupperware
+V: tupperware
+BN: review tupperware
+
+16_00_54
+S: option tupperware
+V: tupperware
+BN: option tupperware
+
+16_01_03
+S: information tumbler
+V: tupperware
+BN: information tumbler
+
+16_01_15
+S: review toy
+V: tupperware
+BN: review tupperware
+

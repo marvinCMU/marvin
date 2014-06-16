@@ -1,0 +1,140 @@
+14_42_00
+S: information adapter
+V: none
+BN: information adapter
+
+14_42_20
+S: information adapter
+V: none
+BN: information adapter
+
+14_42_39
+S: information adapter
+V: adapter
+BN: information adapter
+
+14_42_46
+S: review adapter
+V: adapter
+BN: review adapter
+
+14_42_52
+S: information adapter
+V: adapter
+BN: information adapter
+
+14_42_57
+S: information adapter
+V: adapter
+BN: information adapter
+
+14_43_01
+S: information adapter
+V: adapter
+BN: information adapter
+
+14_43_15
+S: information adapter
+V: adapter
+BN: information adapter
+
+14_43_33
+S: information adapter
+V: none
+BN: information adapter
+
+14_43_44
+S: option adapter
+V: adapter
+BN: option adapter
+
+14_43_50
+S: option adapter
+V: adapter
+BN: option adapter
+
+14_43_58
+S: option adapter
+V: boot
+BN: option boot
+
+14_44_08
+S: option adapter
+V: adapter
+BN: option adapter
+
+14_44_16
+S: option adapter
+V: disk
+BN: option adapter
+
+14_44_25
+S: option adapter
+V: disk
+BN: option adapter
+
+14_44_33
+S: option adapter
+V: halls
+BN: option halls
+
+14_44_42
+S: option adapter
+V: adapter
+BN: option adapter
+
+14_44_47
+S: option adapter
+V: adapter
+BN: option adapter
+
+14_44_59
+S: option adapter
+V: none
+BN: option adapter
+
+14_45_10
+S: review adapter
+V: adapter
+BN: review adapter
+
+14_45_15
+S: review adapter
+V: adapter
+BN: review adapter
+
+14_45_34
+S: option adapter
+V: adapter
+BN: option adapter
+
+14_45_39
+S: review adapter
+V: adapter
+BN: review adapter
+
+14_45_58
+S: review adapter
+V: adapter
+BN: review adapter
+
+14_46_07
+S: review adapter
+V: disk
+BN: review adapter
+
+14_46_40
+S: option boot
+V: adapter
+BN: option adapter
+
+14_47_25
+S: review adapter
+V: disk
+BN: review adapter
+
+14_47_32
+S: review tumbler
+V: none
+BN: review airborne
+

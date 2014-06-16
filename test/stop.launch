@@ -1,0 +1,7 @@
+<!--xml-->
+<launch>
+
+  <node name="stopClient" pkg="testpkg" type="stopClient" output="screen" >
+  </node>
+
+</launch>

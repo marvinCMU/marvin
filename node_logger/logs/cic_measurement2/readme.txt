@@ -1,0 +1,1 @@
+object-on-shelf scenario

@@ -1,0 +1,26 @@
+﻿Build started 11/5/2012 4:30:05 PM.
+     1>Project "C:\HS\Programming\3DReconstruction\AbsoluteRegisteration\Reconstruction3D.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Release\AbsoluteRegistration_64.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\CL.exe /c /I"C:\Program Files\OpenCV\otherlibs\highgui" /I"C:\Program Files\flann\include" /I"C:\Program Files\OpenCV\cv\include" /I"D:\03 Works\Programming\SIGGRAPH12\SIFT_LOWES_Fisheye_FLANN\SIFT_LOWES" /I"C:\Program Files\OpenCV\cvaux\include" /I"C:\Program Files\OpenCV\cxcore\include" /Zi /nologo /W0 /WX- /O2 /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MT /GS /fp:precise /Zc:wchar_t /Zc:forScope /openmp- /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /errorReport:prompt AbsoluteRegistration.cpp
+         AbsoluteRegistration.cpp
+       Link:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\HS\Programming\3DReconstruction\AbsoluteRegisteration\Release\AbsoluteRegistration_64.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"D:\03 Works\Programming\SIGGRAPH12\Include\SBA" /LIBPATH:"C:\Program Files\OpenCV\lib" /LIBPATH:"C:\Program Files\flann\lib" opencv_calib3d231.lib opencv_contrib231.lib opencv_core231.lib opencv_features2d231.lib opencv_highgui231.lib opencv_imgproc231.lib opencv_legacy231.lib clapack.lib BLAS.lib libf2c.lib sba.lib flann.lib levmar.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release\AbsoluteRegistration_64.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\HS\Programming\3DReconstruction\AbsoluteRegisteration\Release\AbsoluteRegistration_64.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\HS\Programming\3DReconstruction\AbsoluteRegisteration\Release\AbsoluteRegistration_64.lib" /MACHINE:X64 Release\DataUtility.obj
+         Release\epnp.obj
+         Release\MathUtility.obj
+         Release\MultiviewGeometryUtility.obj
+         Release\AbsoluteRegistration.obj
+         Generating code
+         Finished generating code
+         Reconstruction3D.vcxproj -> C:\HS\Programming\3DReconstruction\AbsoluteRegisteration\Release\AbsoluteRegistration_64.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\HS\Programming\3DReconstruction\AbsoluteRegisteration\Release\AbsoluteRegistration_64.exe;#1" /manifest Release\AbsoluteRegistration_64.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         Deleting file "Release\AbsoluteRegistration_64.unsuccessfulbuild".
+         Touching "Release\AbsoluteRegistration_64.lastbuildstate".
+     1>Done Building Project "C:\HS\Programming\3DReconstruction\AbsoluteRegisteration\Reconstruction3D.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:10.92

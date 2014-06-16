@@ -1,0 +1,95 @@
+<?xml version="1.0" ?>
+<ActivationSpecificationRecord xmlns="http://www.macrovision.com/fnp/2004/11/activation">
+<Header>
+<Version>1</Version>
+<Id>1</Id>
+<PublisherId>2167552</PublisherId>
+</Header>
+<ConfigData>
+<ClientConfig>
+<Id>1</Id>
+<Revision>NumberOne</Revision>
+<RevisionType>ASR</RevisionType>
+<Data>5DEAEB938947E9F7E74766B8684DD80706CAC6D23BDBB4D6803E1D0A2A0E9C73D18EFB23FBDFD88E4E3490854FE1627CBCFC8DB27016BA469A09B9ED3B0B3FECB40CE2A5AA58C85D93E9EA84A19910EA4ECD5FDEAAEB8DA5B9C679E080E1DDCC44C510FB5F84D7AA69CDB2B51AB9F8A752D5775B7C25384F6813C2BEEB1DB6A8B7E1FD0C592D8675D2ECB77A72BC55AFD694326FA94A5D0D13F369CBB306C6F17F229C0FC8F7F58B72849B0058D52840465D5839DAB4667720B27BD9D5548294315A44222EF19437CEC53B068E747F0F1CF98F828772C4AD6B</Data>
+</ClientConfig>
+</ConfigData>
+<DataDictionary>
+<Entries>
+<Entry>
+<Key>PUBLISHER_DEFINED_CRITERION</Key>
+<Value>LOCAL_ALWAYS</Value>
+</Entry>
+<Entry>
+<Key>PUBLISHER_DEFINED_DURATION</Key>
+<Value>2592000</Value>
+<Entry>
+<Key>PUBLISHER_TRIAL_ID</Key>
+<Value>1</Value>
+</Entry>
+</Entry>
+</Entries>
+</DataDictionary>
+<FulfillmentRecord>
+<FulfillmentRecordHeader>
+<VersionNumber>1</VersionNumber>
+</FulfillmentRecordHeader>
+<FulfillmentRecordData>
+<FulfillmentId>FID-1341337839</FulfillmentId>
+<FulfillmentDictionary>
+<Entries>
+<Entry>
+<Key>fulfillmentType</Key>
+<Value>1</Value>
+</Entry>
+<Entry>
+<Key>expiry</Key>
+<Value>31-dec-2007</Value>
+</Entry>
+<Entry>
+<Key>origExpiry</Key>
+<Value>31-dec-2007</Value>
+</Entry>
+<Entry>
+<Key>serverHostID</Key>
+<Value>FLEXID=6-a6300155</Value>
+</Entry>
+<Entry>
+<Key>servOrLocal</Key>
+<Value>2</Value>
+</Entry>
+<Entry>
+<Key>fulfillmentIdChain</Key>
+<Value>456:123</Value>
+</Entry>
+<Entry>
+<Key>ProductId</Key>
+<Value>Intel(R) Integrated Performance Primitives 7.1 for Linux*</Value>
+</Entry>
+<Entry>
+<Key>EntitlementId</Key>
+<Value>ENTL_INTEL_SOFTWARE_TRIAL</Value>
+</Entry>
+<Entry>
+<Key>availAct</Key>
+<Value>1</Value>
+</Entry>
+<Entry>
+<Key>features</Key>
+<Value>INCREMENT PerfPrim INTEL 2020.1231 31-dec-2020 1 B8D8B9F9B53B \
+	VENDOR_STRING="EVAL SUPPORT=EVAL \
+	https://registrationcenter.intel.com" HOSTID=ANY \
+	PLATFORMS="i86_r i86_re it64_lr it64_re amd64_re" ck=155 \
+	SN=INT20120703 TS_OK SIGN=1ADC6E6432C6
+INCREMENT PerfPrimL INTEL 2020.1231 31-dec-2020 1 26B6273B9A8D \
+	VENDOR_STRING="EVAL SUPPORT=EVAL \
+	https://registrationcenter.intel.com" HOSTID=ANY \
+	PLATFORMS="i86_r i86_re it64_lr it64_re amd64_re" ck=117 \
+	SN=INT20120703 TS_OK SIGN=3FFC7594E266
+</Value>
+</Entry>
+</Entries>
+</FulfillmentDictionary>
+</FulfillmentRecordData>
+</FulfillmentRecord>
+<Signature>1EEE77C7AB2B62A64C9CFDA04220BC577746CA1FC65B6A7E8CE7E641C566175E7FEAEC58B362C08D4CDF64FD4A2B17B73038BF6216ADFBD5364917CA</Signature>
+</ActivationSpecificationRecord>

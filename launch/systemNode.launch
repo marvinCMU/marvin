@@ -1,0 +1,25 @@
+<!--xml-->
+<launch>
+
+  <!-- global settings -->
+  <param name="speechTalkback" type="bool" value="true" />
+  <param name="faceRecog" type="bool" value="true" />
+  <param name="locationRecog" type="bool" value="true" />
+  <param name="objectRecog" type="bool" value="true" />
+  <param name="retailRecog" type="bool" value="true" />
+
+  <param name="speechLibPath" type="string" value="$(find mmfpspkg)/library/lib_speech/"/>
+  <param name="faceLibPath" type="string" value="$(find mmfpspkg)/library/lib_face/" />
+  <param name="locationLibPath" type="string" value="$(find mmfpspkg)/library/lib_location/"/>
+  <param name="retailLibPath" type="string" value="$(find mmfpspkg)/library/lib_retail/"/>
+  <param name="bnetLibPath" type="string" value="$(find mmfpspkg)/library/lib_bnet/"/>
+  <param name="guiLibPath" type="string" value="$(find mmfpspkg)/library/lib_gui/"/>
+  <param name="tmpLibPath" type="string" value="$(find mmfpspkg)/data_tmp/"/>
+  
+  <!-- system param node -->
+  <node name="systemNode" pkg="mmfpspkg" type="systemNode" output="screen" >
+  </node>
+
+
+</launch>
+

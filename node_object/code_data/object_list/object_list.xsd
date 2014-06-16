@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="Root">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element minOccurs="0" maxOccurs="unbounded" name="Product" type="xsd:string" />
+          <xsd:complexType>
+            <xsd:all>
+              <xsd:element minOccurs="0" maxOccurs="1" name="Name" type="xsd:string" />
+              <xsd:element minOccurs="0" maxOccurs="1" name="Color" type="xsd:string" />
+              <xsd:element minOccurs="0" maxOccurs="1" name="Price" type="xsd:string" />
+              <xsd:element minOccurs="0" maxOccurs="1" name="Option" type="xsd:string" />
+              <xsd:element minOccurs="0" maxOccurs="1" name="Review" type="xsd:string" />
+            </xsd:all>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

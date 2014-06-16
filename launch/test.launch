@@ -1,0 +1,12 @@
+<!--xml-->
+<launch>
+
+  <param name="speechTalkback" type="bool" value="true" />
+  <param name="speechLibPath" type="string" value="$(find mmfpspkg)/library/lib_speech/"/>
+
+  <node name="retailCommander" pkg="mmfpspkg" type="RetailCommander.py" output="screen" >
+    <param name="lm" type="string" value="$(find mmfpspkg)/library/lib_speech/retail.lm"/>
+    <param name="dict" type="string" value="$(find mmfpspkg)/library/lib_speech/retail.dic"/>
+  </node>
+
+</launch>

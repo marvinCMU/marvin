@@ -1,0 +1,7 @@
+<!--xml-->
+<launch>
+
+  <node name="cameratest" pkg="mmfpspkg" type="cameraTest" output="screen" >
+  </node>
+
+</launch>

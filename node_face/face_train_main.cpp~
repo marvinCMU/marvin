@@ -1,0 +1,89 @@
+#include "facedetectionizer.hpp"
+#include <ros/ros.h>
+#include <std_msgs/String.h>
+#include <image_transport/image_transport.h>
+#include <compressed_image_transport/compressed_subscriber.h>
+#include <sensor_msgs/image_encodings.h>
+#include <cv_bridge/cv_bridge.h>
+#include <cv_bridge/CvBridge.h>
+#include <opencv/cv.h>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <sstream>
+
+#define FACES_TO_SAVE 40;
+
+char key='i';
+string label;
+bool faceFound = false;
+Mat face, rotatedFace;
+Rect pos;
+bool detectFace=false;
+bool recognizeFace=false;
+bool takeData=false;
+bool updateModel=false;
+bool eyesDetected=false;
+int width = 200;
+int height = -1; //calculate
+
+IplImage* iplImg=NULL;
+
+
+string cascadeName = FACE_CASCADE_DEFAULT_PATH;
+string leftEyeCascade = L_EYE_CASCADE_DEFAULT_PATH;
+string rightEyeCascade = R_EYE_CASCADE_DEFAULT_PATH;
+
+Mat frame, frameCopy, image;
+string inputName;
+double scale = 1;
+string dataPath = DATA_DEFAULT_PATH;
+ofstream outstr;
+string modelPath = MODEL_DEFAULT_PATH;
+bool suppressVideo = false;
+bool loocv = false;
+bool daemonMode = false;
+string recoType= "LBPH";
+
+FaceDetector faceDetector(cascadeName, leftEyeCascade, rightEyeCascade);
+FaceRecognizerWLabels model(recoType);
+
+ros::Publisher faces_left_publisher;
+
+int faces_left = FACES_TO_SAVE;
+
+
+void take_data_callback( const sensor_msgs::ImageConstPtr& msg ){
+  sensor_msgs::CvBridge bridge;
+  std_msgs::String faces_left_msg;
+  iplImg = bridge.imgMsgToCv(msg, "bgr8");
+  string label = "NULL";
+
+  //        faceDetector.PrepareToCollectData(dataPath, label);
+
+  if( iplImg != NULL ){
+    face = iplImg;
+    faceDetector.SaveFace(face,label);
+    faces_left--;
+  }
+
+  faces_left_msg.data = "false";
+  if( faces_left > 0 ){
+    faces_left_msg.data = "true";    
+    faces_left_publisher.publish( faces_left_msg );
+  }
+}
+
+int main( int argc, char** argv )
+{
+  ros::init( argc, argv, "face_detector");
+  ros::NodeHandle nh;
+
+  image_transport::ImageTransport it(nh);
+  image_transport::Subscriber imgSub = it.subscribe("face/face_detection_result/image",
+						    5, take_data_callback ) ;
+  //ros::Subscriber = nh.subscribe( "face/face_detection/faces_left", 1000, faces_left_callback );
+  faces_left_publisher = nh.advertise< std_msgs::String >( "face/face_train/faces_left", 1000 );
+
+  ros::spin();
+  return 0;
+}

@@ -1,0 +1,48 @@
+#include "ServerSocket.h"
+#include "SocketException.h"
+#include <string>
+#include <time.h>
+#include <iostream>
+//#include
+
+using namespace std;
+
+ 
+/*void sleep(unsigned int mseconds)
+{
+    clock_t goal = mseconds + clock();
+    while (goal > clock());
+}*/
+
+int main ( int argc, char* argv[] ) {
+	std::cout << "running....\n";
+	int i=0;
+	try {
+		// Create the socket
+		ServerSocket server ( 8080 );
+
+		while ( true ) {
+
+			ServerSocket new_sock;
+			server.accept ( new_sock );
+			try {
+				while ( true ) {
+					std::string data;
+					//new_sock >> data;
+					//new_sock << data;
+					// output data
+					data = "hi";
+					new_sock << data;
+					Sleep(1000);
+					//system.sleep(1);
+				}
+			}
+			catch ( SocketException& ) {}
+
+		}
+	} catch ( SocketException& e ) {
+      std::cout << "Exception was caught:" << e.description() << "\nExiting.\n";
+    }
+
+  return 0;
+}

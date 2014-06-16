@@ -1,0 +1,35 @@
+CXX		= g++ #-pg
+
+
+#CFLAGS		= -O0
+#CFLAGS		= -O3 -mtune=native -msse3 -unroll-all-loops -fstrict-aliasing -ftree-loop-distribution -ftree-vectorizer-verbose=2
+CFLAGS		= -O3 -mtune=native -msse3 -unroll-all-loops -fstrict-aliasing -ftree-vectorizer-verbose=2
+
+CFLAGS		+= -g -Wall `pkg-config --cflags opencv`
+CXXFLAGS	= $(CFLAGS)
+LDFLAGS		= `pkg-config --libs opencv`
+
+
+BIN		= img2key keydisp
+
+all:		$(BIN)
+
+$(BIN): %:  %.o
+	$(CXX) -o $@ $^ $(LDFLAGS) 
+
+clean:;		rm -f $(BIN) gmon.out *.o *~
+
+
+#g++  -O3 -mtune=native -msse3 -unroll-all-loops -fstrict-aliasing -ftree-vectorizer-verbose=2 -g -Wall `pkg-config --cflags opencv`   -c -o img2key.o img2key.cc
+
+#g++  -o img2key img2key.o `pkg-config --libs opencv` 
+
+#g++  -O3 -mtune=native -msse3 -unroll-all-loops -fstrict-aliasing -ftree-vectorizer-verbose=2 -g -Wall `pkg-config --cflags opencv`   -c -o keydisp.o keydisp.cc
+
+#g++  -o keydisp keydisp.o `pkg-config --libs opencv` 
+
+
+
+#g++ -O3 -mtune=native -msse3 -unroll-all-loops -fstrict-aliasing -ftree-vectorizer-verbose=2 -g -Wall `pkg-config --cflags opencv`  -o img2key img2key.cc
+
+#g++ -O3 -mtune=native -msse3 -unroll-all-loops -fstrict-aliasing -ftree-vectorizer-verbose=2 -g -Wall `pkg-config --cflags opencv`  -o img2key img2key.cpp

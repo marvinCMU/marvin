@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MediaConfig>
+	<MediaID>X3F</MediaID>
+	<RegistrationCenterURL>https://ircws.intel.com/wsregcentertools/wsregcenter.asmx</RegistrationCenterURL>
+	<ShortCodeURL>https://registrationcenter.intel.com/RegCenter/remoteactivation.aspx</ShortCodeURL>
+	<TrialASRFile>${ENGINE_DIR}/../l_ipp.asr</TrialASRFile>
+	<ProductID>Intel(R) Integrated Performance Primitives 7.1 for Linux*</ProductID>
+        <FulfillmentID>FID-1341337839</FulfillmentID>
+        <UpdateCenterURL>https://fnc-notification.intel.com</UpdateCenterURL>
+	<Name>${ipp_suite_product_name}</Name>
+	<Version>13.0</Version>
+	<Description>${ipp_suite_product_desc}</Description>
+	<PackageSupportType></PackageSupportType>
+        <UnusedMediaFlexCodeNames>PerfPrim</UnusedMediaFlexCodeNames>
+	<Product id="1" depend="" platform="INTEL64" cafe="false">
+		<Name>${suite_product_name}</Name>
+		<Version>13.0</Version>
+		<Description>${suite_product_desc}</Description>
+		<Installer></Installer>
+		<ProductCode></ProductCode>
+		<Component id="1" depend="" platform="INTEL64" cafe="false">
+			<Name>${tool_selection_ipp_intel64_name}</Name>
+			<Version>7.1</Version>
+			<Description>${tool_selection_ipp_intel64_desc}</Description>
+			<Installer>${ENGINE_DIR}/../install.sh --run --ipp_intel64</Installer>
+			<ProductCode></ProductCode>
+			<RPMProductCode>intel-ipp-devel-117</RPMProductCode>
+			<RPMProductArch>x86_64</RPMProductArch>
+			<NONRPMProductCode>intel-ipp-devel-117-7.1-1.x86_64.rpm</NONRPMProductCode>
+			<Abbr>IPP_INTEL64</Abbr>
+			<Data>1500</Data>
+			<Selected>1</Selected>
+			<SilentCFGTemplate>silent_cfg_template</SilentCFGTemplate>
+			<ChklicIA32>${ENGINE_DIR}/../chklic/32/chklic</ChklicIA32>
+			<ChklicIntel64>${ENGINE_DIR}/../chklic/32e/chklic</ChklicIntel64>
+			<MapFileDir>${ENGINE_DIR}/..</MapFileDir>
+			<FlexCodeName>
+			    <FeatureName>PerfPrimL</FeatureName>
+			    <SupportCode></SupportCode>
+			</FlexCodeName>
+			<ISM guid="{88A4251C-5D45-4238-A0F5-58000E78D4FA}" version="7.1" name="Intel(R) Integrated Performance Primitives 7.1" update_id="l_ipp_7.1.1.117"/>
+		</Component>
+
+	</Product>
+</MediaConfig>

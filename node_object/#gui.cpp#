@@ -1,0 +1,627 @@
+/* 
+ * Desktop GUI for demo purposes
+ * Project: Multimodal First Person Sensing (MFPS)
+ * Author: Qifan Hu (qhu@andrew.cmu.edu)
+ * Affiliation: Carnegie Mellon University, ISTC-EC
+ */
+
+// system library
+#include <cstdio>
+#include <cstdlib>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <ctime>
+#include <vector>
+// GTK Library
+#include <gtk/gtk.h>
+#include <glib.h>
+// OpenCV Library
+#include <cv.h>
+#include <cxcore.h>
+#include <highgui.h>
+// tinyxml library
+#include "readObject.h"
+// socket library
+//#include "ServerSocket.h"
+//#include "SocketException.h"
+// System Param Library
+#include "systemParams.h"
+
+using namespace std;
+
+// path variable
+string dirPath;
+
+// pthread variables
+pthread_mutex_t serverLock = PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t serverCond = PTHREAD_COND_INITIALIZER;
+bool updateMsg = TRUE;
+string phoneMsg = "Hello World World Hello World\n";
+string servertemp = "Hello World World Hello World\n";
+
+// gui variables
+IplImage *img1;
+IplImage *img2;
+IplImage *img3;
+IplImage *img1_resize;
+IplImage *img2_resize;
+IplImage *img3_resize;
+
+GtkWidget *picarea1;
+GtkWidget *picarea2;
+GtkWidget *picarea3;
+GtkWidget *logs;
+GtkWidget *loglabel;
+GtkWidget *alllabel;
+GtkWidget *inflabel;
+GtkWidget *piclabel1;
+GtkWidget *piclabel2;
+GtkWidget *piclabel3;
+GtkWidget *piclabel4;
+GtkWidget *scrolled;
+GtkWidget *webcheck;
+GtkWidget *videocheck;
+GtkWidget *videostopcheck;
+GtkTextBuffer *buffer;
+
+GtkTextMark *mark;
+GtkTextIter start, end;
+GtkTextIter iter;
+GtkAdjustment *logadj;
+
+char *filestamp;
+char *timestamp;
+char *picdir1;
+char *picdir2;
+char *picdir3;
+char *logdir;
+char *picchar1;
+char *picchar2;
+char *picchar3;
+char *picchar4;
+char *logchar;
+char *infchar;
+char *allchar;
+
+char *lastfilestamp2;
+char *lastfilestamp3;
+string lasttimestamp;
+
+bool openLink;
+bool saveVideo;
+bool stopVideo;
+
+GdkPixbuf *pix;
+CvCapture *capture;
+time_t rawtime;
+struct tm *ptm;
+int	lastsec = 0;
+
+// object database variable
+ObjectDatabase *odb;
+
+// pthread server function
+void setServerMessage (string);
+void *hostServer(void*);
+// function for image and video display
+static gboolean time_handler1 (GtkWidget*);
+gboolean picarea2_callback (GtkWidget*, GdkEventExpose*, gpointer);
+gboolean picarea3_callback (GtkWidget*, GdkEventExpose*, gpointer);
+gboolean video_callback (GtkWidget*, GdkEventExpose*, gpointer);
+// read from log file
+void readLogInfo ();
+void displayLog (string);
+// read from object library file
+void getObjectData (string);
+// query responder
+void displayRecogInfo ();
+void displayObjInfo (string);
+void openBrowser (string);
+// initialize data
+void expose_display ();
+// change options
+void toggleLink ();
+void toggleVideo ();
+void toggleStopVideo ();
+// change string case -- -1: lower case, 0: normal case; 1: upper case
+void changeWordCase (string &, int);
+void changeStrCase(string &, int);
+
+
+int main (int argc, char *argv[]) {
+
+	// parse directory path
+  	dirPath = DIR_PATH;
+	//	string envPath = getenv("HOME");	
+	//	dirPath.replace(dirPath.find("~"), 1, envPath);
+	// thread variable
+	pthread_t serverThread;
+	int threadStatus;
+	int value = 40;
+
+	GtkWidget *window;
+	GtkWidget *fixed;
+	filestamp = new char[8];
+	timestamp = new char[8];
+	picdir1 = new char[100];
+	picdir2 = new char[100];
+	picdir3 = new char[100];
+	logdir = new char[100];
+	picchar1 = new char[100];
+	picchar2 = new char[100];
+	picchar3 = new char[100];
+	picchar4 = new char[100];
+	logchar = new char[100];
+	infchar = new char[200];
+	allchar = new char[200];
+	lastfilestamp2 = new char[8];
+	lastfilestamp3 = new char[8];
+	
+	openLink = FALSE;
+	saveVideo = TRUE; 
+	stopVideo = FALSE;
+
+	odb = new ObjectDatabase();
+
+	// define main window
+	// take care, this part uses input!!!!!!!!!!!!!!!!!
+	gtk_init (NULL, NULL);
+	window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_title (GTK_WINDOW(window), "Intelligentsia - MFPS");
+	gtk_window_set_default_size (GTK_WINDOW(window), 1050, 840);
+	gtk_window_set_position (GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+	fixed = gtk_fixed_new();
+	gtk_container_add (GTK_CONTAINER(window), fixed);
+	
+	// define image widgets
+	picarea1 = gtk_drawing_area_new();
+	gtk_fixed_put (GTK_FIXED(fixed), picarea1, 20, 50);
+	gtk_widget_set_size_request (picarea1, 500, 375);
+
+	picarea2 = gtk_drawing_area_new();
+	gtk_fixed_put (GTK_FIXED(fixed), picarea2, 20, 485);
+	gtk_widget_set_size_request (picarea2, 360, 270);
+
+	picarea3 = gtk_drawing_area_new();
+	gtk_fixed_put (GTK_FIXED(fixed), picarea3, 420, 485);
+	gtk_widget_set_size_request (picarea3, 360, 270);
+
+	// define labels for images
+	piclabel1 = gtk_label_new(NULL);
+	gtk_label_set_markup((GtkLabel*)piclabel1, "<span font=\"24\"><b>Intelligentsia: Multimodal First Person Sensing</b></span>");
+	gtk_fixed_put (GTK_FIXED(fixed), piclabel1, 20, 5);
+	gtk_widget_set_size_request (piclabel1, 1000, 35);
+	gtk_label_set_justify( (GtkLabel*)piclabel1, GTK_JUSTIFY_LEFT);
+	gtk_label_set_line_wrap ( (GtkLabel*)piclabel1, TRUE);
+	piclabel2 = gtk_label_new(NULL);
+	gtk_label_set_markup((GtkLabel*)piclabel2, "<span font=\"24\"><b>User's View:</b></span>");
+	gtk_fixed_put (GTK_FIXED(fixed), piclabel2, 20, 445);
+	gtk_widget_set_size_request (piclabel2, 360, 35);
+	gtk_label_set_justify( (GtkLabel*)piclabel2, GTK_JUSTIFY_LEFT);
+	gtk_label_set_line_wrap ( (GtkLabel*)piclabel2, TRUE);
+	piclabel3 = gtk_label_new(NULL);
+	gtk_label_set_markup((GtkLabel*)piclabel3, "<span font=\"24\"><b>Vision Classification:</b></span>");
+	gtk_fixed_put (GTK_FIXED(fixed), piclabel3, 420, 445);
+	gtk_widget_set_size_request (piclabel3, 360, 35);
+	gtk_label_set_justify( (GtkLabel*)piclabel3, GTK_JUSTIFY_LEFT);
+	gtk_label_set_line_wrap ( (GtkLabel*)piclabel3, TRUE);
+	
+	// define log widget
+	loglabel = gtk_label_new(NULL);
+	gtk_label_set_markup((GtkLabel*)loglabel, "<span font=\"24\"><b>Logging Info: </b></span>");
+	gtk_fixed_put (GTK_FIXED(fixed), loglabel, 800, 40);
+	gtk_widget_set_size_request (loglabel, 230, 40);
+	gtk_label_set_justify( (GtkLabel*)loglabel, GTK_JUSTIFY_LEFT);
+	gtk_label_set_line_wrap ( (GtkLabel*)loglabel, TRUE);
+
+	scrolled = gtk_scrolled_window_new(NULL, NULL);
+	logs = gtk_text_view_new ();
+	gtk_fixed_put (GTK_FIXED(fixed), scrolled, 800, 85);
+	gtk_widget_set_size_request (scrolled, 230, 670);
+	gtk_container_add (GTK_CONTAINER (scrolled), logs);
+	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(logs));
+	gtk_text_buffer_get_iter_at_offset(buffer, &iter, 0);
+	//gtk_text_view_set_editable ((GtkTextView *)logs, FALSE);
+
+	// define final result label
+	piclabel4 = gtk_label_new(NULL);
+	gtk_label_set_markup((GtkLabel*)piclabel4, "<span font=\"36\"><b>Multimodal First Person Sensing</b></span>");
+	gtk_fixed_put (GTK_FIXED(fixed), piclabel4, 20, 770);
+	gtk_widget_set_size_request (piclabel4, 1000, 50);
+	gtk_label_set_justify( (GtkLabel*)piclabel4, GTK_JUSTIFY_CENTER);
+	gtk_label_set_line_wrap ( (GtkLabel*)piclabel4, TRUE);
+	
+	// define all label for speech and final
+	alllabel = gtk_label_new(NULL);
+	gtk_label_set_markup((GtkLabel*)alllabel, "<span font=\"16\">Speech Result:\n\nAnalysis Result:\n</span>");
+	gtk_fixed_put (GTK_FIXED(fixed), alllabel, 550, 40);
+	gtk_widget_set_size_request (alllabel, 230, 160);
+	gtk_label_set_justify( (GtkLabel*)alllabel, GTK_JUSTIFY_LEFT);
+	gtk_label_set_line_wrap ( (GtkLabel*)alllabel, TRUE);
+
+	// define info label
+	inflabel = gtk_label_new(NULL);
+	gtk_label_set_markup((GtkLabel*)inflabel, "<span font=\"16\">About:\n\nName:\n\nColor:\n\nPrice:</span>");
+	gtk_fixed_put (GTK_FIXED(fixed), inflabel, 550, 190);
+	gtk_widget_set_size_request (inflabel, 230, 220);
+	gtk_label_set_justify( (GtkLabel*)inflabel, GTK_JUSTIFY_LEFT);
+	gtk_label_set_line_wrap ( (GtkLabel*)inflabel, TRUE);
+
+	// define checkbutton for video
+	videocheck = gtk_check_button_new_with_label("Save Video");
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(videocheck), TRUE);
+	GTK_WIDGET_UNSET_FLAGS(videocheck, GTK_CAN_FOCUS);
+	gtk_fixed_put (GTK_FIXED(fixed), videocheck, 550, 400);
+
+	// define checkbutton for web
+	webcheck = gtk_check_button_new_with_label("Open Link");
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(webcheck), FALSE);
+	GTK_WIDGET_UNSET_FLAGS(webcheck, GTK_CAN_FOCUS);
+	gtk_fixed_put (GTK_FIXED(fixed), webcheck, 665, 400);
+
+	// define checkbutton for stop video
+	videostopcheck = gtk_check_button_new_with_label("Stop Video");
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(videostopcheck), FALSE);
+	GTK_WIDGET_UNSET_FLAGS(videostopcheck, GTK_CAN_FOCUS);
+	gtk_fixed_put (GTK_FIXED(fixed), videostopcheck, 550, 420);
+
+	// open camera or video, based on settings
+	// use live camera
+	if (VID_SOURCE == 0) {
+		capture = cvCaptureFromCAM (CV_CAP_ANY);
+		if ( !capture ) {
+			capture = cvCaptureFromCAM (0);		
+		}
+		if ( !capture ) {
+			capture = cvCaptureFromCAM (1);		
+		}
+		if ( !capture ) {
+			cout << "<Interface> Cannot initialize webcam !" << endl;
+			return 1;
+		}
+	// use video files
+	} else if (VID_SOURCE == 1) {
+		capture = cvCaptureFromAVI (VID_PATH);
+		if ( !capture ) {
+			cout << "<Interface> Cannot load video at: " << VID_PATH << endl;
+			return 1;
+		}
+	} else {
+		cout << "<Interface> Camera or video disabled" << endl;
+		//return 1;
+	}
+
+	// get object data library		
+	odb->loadData(OBJ_XML, OBJ_NUM);
+	//odb->printObjectDatabase();
+	cout << "<Database> " << odb->objNum << " objects loaded" << endl;
+
+	// define image settings and route path
+	expose_display();
+
+	g_signal_connect_swapped (G_OBJECT (window), "destroy", G_CALLBACK (gtk_main_quit), NULL);
+	g_signal_connect (G_OBJECT (picarea1), "expose_event", G_CALLBACK (video_callback), NULL);
+	g_signal_connect (G_OBJECT (picarea2), "expose_event", G_CALLBACK (picarea2_callback), NULL);
+	g_signal_connect (G_OBJECT (picarea3), "expose_event", G_CALLBACK (picarea3_callback), NULL);
+	g_timeout_add (400, (GSourceFunc) time_handler1, (gpointer) picarea1 );
+	g_signal_connect(webcheck, "clicked", G_CALLBACK(toggleLink), NULL);
+	g_signal_connect(videocheck, "clicked", G_CALLBACK(toggleVideo), NULL);
+	g_signal_connect(videostopcheck, "clicked", G_CALLBACK(toggleStopVideo), NULL);
+
+	gtk_widget_show_all(window);
+
+	gtk_main();
+
+
+	return 0;
+}
+
+// function for loading images in the beginning
+void expose_display () {
+	string logtemp;
+
+	sprintf(filestamp, "00_00_00");
+	sprintf(logdir, "%s%s", dirPath.c_str(), LOG_PATH);
+	sprintf(lastfilestamp2, "");
+	sprintf(lastfilestamp3, "");
+
+	img1_resize = cvCreateImage (cvSize(500, 375), IPL_DEPTH_8U, 3);
+	
+	logtemp = "";
+	displayLog(logtemp);
+}
+
+static gboolean time_handler1 (GtkWidget *widget ) {
+	return TRUE;
+
+}
+
+gboolean picarea2_callback (GtkWidget *widget, GdkEventExpose *event, gpointer data) {
+	gtk_widget_queue_draw( GTK_WIDGET (widget));
+	sprintf(picdir2, "%s%s/t_%-8s.jpg", dirPath.c_str(), CAMERA_OUTPUT_DIR, filestamp);
+	//	cout<<"picdir2= "<<picdir2<<std::endl;
+	img2 = cvLoadImage (picdir2, 1);
+	while (!img2) {
+		img2 = cvLoadImage (picdir2, 1);
+	}
+
+	cvCvtColor (img2, img2, CV_BGR2RGB);
+	img2_resize = cvCreateImage (cvSize(360, 270), IPL_DEPTH_8U, 3);
+	cvResize (img2, img2_resize, CV_INTER_LINEAR);
+	pix = gdk_pixbuf_new_from_data( (guchar*) img2_resize->imageData, GDK_COLORSPACE_RGB, FALSE, img2_resize->depth, img2_resize->width, img2_resize->height, (img2_resize->widthStep), NULL, NULL); 
+	gdk_draw_pixbuf(widget->window, widget->style->fg_gc[GTK_WIDGET_STATE (widget)], pix, 0, 0, 0, 0, img2_resize->width, img2_resize->height, GDK_RGB_DITHER_NONE, 0, 0);
+	sprintf(lastfilestamp2, "%s", filestamp);
+	cvReleaseImage(&img2_resize);
+	cvReleaseImage(&img2);
+	
+	//update information
+	//gtk_label_set_markup( (GtkLabel*)piclabel2, picchar2);
+	//gtk_label_set_text ( (GtkLabel*)piclabel2, picchar2);
+	return TRUE;
+}
+
+gboolean picarea3_callback (GtkWidget *widget, GdkEventExpose *event, gpointer data) {
+	gtk_widget_queue_draw( GTK_WIDGET (widget));
+	sprintf(picdir3, "%s%s/m_%-8s.jpg", dirPath.c_str(), DETECTED_IMAGES_DIR, filestamp);
+	//	cout<<"picdir3= "<<picdir3<<endl;
+	img3 = cvLoadImage (picdir3, 1);
+	while (!img3) {
+		img3 = cvLoadImage (picdir3, 1);
+	}
+	cvCvtColor (img3, img3, CV_BGR2RGB);
+	img3_resize = cvCreateImage (cvSize(360, 270), IPL_DEPTH_8U, 3);
+	cvResize (img3, img3_resize, CV_INTER_LINEAR);
+ 	pix = gdk_pixbuf_new_from_data( (guchar*) img3_resize->imageData, GDK_COLORSPACE_RGB, FALSE, img3_resize->depth, img3_resize->width, img3_resize->height, (img3_resize->widthStep), NULL, NULL); 
+	gdk_draw_pixbuf(widget->window, widget->style->fg_gc[GTK_WIDGET_STATE (widget)], pix, 0, 0, 0, 0, img3_resize->width, img3_resize->height, GDK_RGB_DITHER_NONE, 0, 0);
+	cvReleaseImage(&img3_resize);
+	cvReleaseImage(&img3);
+	
+	//update information
+	//gtk_label_set_markup( (GtkLabel*)piclabel3, picchar3);
+	//gtk_label_set_text ( (GtkLabel*)piclabel3, picchar3);
+	return TRUE;
+}
+
+gboolean video_callback (GtkWidget *widget, GdkEventExpose *event, gpointer data) {
+	string logtemp;
+	gtk_widget_queue_draw( GTK_WIDGET (widget));
+
+	//if (VID_SOURCE == 0) {
+	if (VID_SOURCE==2) {
+		if (!stopVideo) {
+			img1 = cvQueryFrame (capture);
+			cvCvtColor (img1, img1, CV_BGR2RGB);
+			cvResize (img1, img1_resize, CV_INTER_LINEAR);
+		} 
+		pix = gdk_pixbuf_new_from_data( (guchar*) img1_resize->imageData, GDK_COLORSPACE_RGB, FALSE, 
+		img1_resize->depth, img1_resize->width, img1_resize->height, (img1_resize->widthStep), NULL, NULL); 
+		gdk_draw_pixbuf(widget->window, widget->style->fg_gc[GTK_WIDGET_STATE (widget)], pix, 0, 0, 0, 0, 
+				img1_resize->width, img1_resize->height, GDK_RGB_DITHER_NONE, 0, 0);
+
+
+		//if (saveVideo) {
+		//compression information
+		std::vector<int>params;
+		params.push_back( CV_IMWRITE_JPEG_QUALITY ); 
+		params.push_back( 100 );
+
+		//save image
+		if (false) {
+			time(&rawtime);
+			ptm = gmtime(&rawtime);    
+			if (ptm->tm_sec!=lastsec) {
+
+				sprintf(timestamp, "%02d_%02d_%02d", ptm->tm_hour, ptm->tm_min, ptm->tm_sec);
+				lastsec = ptm->tm_sec;
+				sprintf(picdir1, "%s%s/v_%-8s.jpg", dirPath.c_str(), IMAGES_BUFFER_DIR, timestamp);
+				cvCvtColor (img1, img1, CV_RGB2BGR);
+				if(!cvSaveImage(picdir1, img1)) {
+				  //cv::Mat mat_img1(img1);
+				//if(!cv::imwrite(picdir1, mat_img1, params)){
+					logtemp = logtemp + "<Interface> Could not save file: " + picdir1 + "\n";
+					displayLog(logtemp);
+				    //printf("Could not save: %s\n",picdir1);
+				}
+				cvCvtColor (img1, img1, CV_BGR2RGB);
+			}
+		}
+	}
+
+	readLogInfo();
+	
+	return TRUE;
+}
+
+void readLogInfo () {
+  
+  std::vector<string> log_lines;
+	string strtemp;
+	string logtemp;
+	//	string logline1;
+	//	string logline2;
+	//	string logline3;
+	string cmd;
+	string obj;
+	int i = 0;
+	char *speechChar = new char [100];
+	char *visionChar = new char [100];
+	char *finalChar = new char [100];
+
+	//open the file for the gui log
+	ifstream logfile (logdir);
+	assert(logfile.is_open());
+
+	//read the first line from the file to test if there is new
+	//file information
+	getline( logfile,strtemp );
+	//if there is an updated time stamp
+	if (strtemp.compare(lasttimestamp) != 0) {
+	  //update the timestamp info and save the filestamp
+	  lasttimestamp = strtemp;
+	  filestamp = (char*)strtemp.c_str();
+	  std::cout<<"filestamp= "<<filestamp<<endl;
+	  logtemp = logtemp + "Timestamp: " + strtemp + "\n";	
+	  
+	  //CAPTURE IMAGE HERE AND SAVE IT
+	} else {
+	  return;
+	}
+	//read all of the lines from the file
+	while (getline(logfile, strtemp)){ log_lines.push_back(strtemp); }
+	logfile.close();
+	  
+	//changeStrCase (logline1, 0);
+	//changeWordCase (logline2, 0);
+	//changeStrCase (logline3, 0);
+
+	logtemp = logtemp + "Speech: " + loglines[0] + "\n";
+	logtemp = logtemp + "Vision: " + loglines[1] + "\n";
+	logtemp = logtemp + "Final: "  + loglines[2] + "\n" + ">\n";
+	
+	sprintf(allchar, "<span font=\"16\">Speech Result:\n<b>  \"%s\"</b>\n\nAnalysis Result:\n<b>  %s</b></span>", loglines[0].c_str(), loglines[2].c_str());
+
+	sprintf(picchar4, "<span font=\"36\"><b>%s</b></span>", loglines[2].c_str());
+
+	servertemp = loglines[0] + " " + loglines[1] + " " + loglines[2] + "\n";
+	
+	//show the information from the log
+	displayLog (logtemp);
+	displayObjInfo (loglines[2]);
+	displayRecogInfo ();
+
+	//gtk_label_set_markup( (GtkLabel*)piclabel2, picchar2);
+	//gtk_label_set_markup( (GtkLabel*)piclabel3, picchar3);
+}
+
+void displayLog (string ss) {
+
+	gtk_text_buffer_insert(buffer, &iter, ss.c_str(), -1);
+	logadj = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW(scrolled));
+	gtk_container_set_focus_vadjustment (GTK_CONTAINER(scrolled), logadj);
+}
+
+void displayRecogInfo () {
+	gtk_label_set_markup((GtkLabel*)alllabel, allchar);
+	gtk_label_set_markup((GtkLabel*)piclabel4, picchar4);
+}
+
+void displayObjInfo (string f) {
+	string cmd;
+	string obj;
+	RetailObject ro;
+
+	// retrieve command and object
+	size_t tokenPos = f.find(" ");
+	cmd = f.substr(0, tokenPos);
+	f.erase(0, tokenPos+1);
+	obj = f;
+	
+	sprintf(infchar, "<span font=\"16\">About %s:\n\nName: <b>%s</b>\n\nColor: <b>%s</b>\n\nPrice: <b>%s</b></span>", "N/A","N/A","N/A","N/A");
+
+	// retrieve data from the object library for information
+	ro = odb->findObject(obj);
+	sprintf(infchar, "<span font=\"16\">About <b>%s</b>:\n\nName: <b>%s</b>\n\nColor: <b>%s</b>\n\nPrice: <b>%s</b></span>", obj.c_str(), (ro.name).c_str(),(ro.color).c_str(),(ro.price).c_str());
+	
+	// display information
+	gtk_label_set_markup((GtkLabel*)inflabel, infchar);
+	
+	// do commands
+	if (openLink) {
+		// other commands
+		if ((cmd.compare("Information") == 0)||(cmd.compare("Info") == 0)) {
+		} else if (cmd.compare("Review") == 0) {
+			openBrowser (ro.review);
+		} else if (cmd.compare("Option") == 0) {
+			openBrowser (ro.option);
+		} else if (cmd.compare("Hello") == 0) {
+		} else {
+			openBrowser (ro.review);
+		}
+	}
+
+}
+
+void setServerMessage (string servertemp) {
+	pthread_mutex_lock(&serverLock) ;
+	updateMsg = true;
+	phoneMsg = servertemp;
+	pthread_mutex_unlock(&serverLock) ;
+	pthread_cond_signal(&serverCond);
+	//cout << "<Socket> Server data updated"<< endl;
+}
+
+// open links using default browser
+void openBrowser (string url) {
+	char *urlchar = new char[200];
+	sprintf(urlchar, "x-www-browser -new-tab \"%s\"", (char*)url.c_str());
+	system (urlchar);
+}
+
+// change the state of open external links
+void toggleLink () {
+	if (openLink) {
+		openLink = FALSE;		
+	} else {
+		openLink = TRUE;	
+	}
+	//cout << "<Interface> Link state change: " << openLink << endl;
+}
+
+// change the state of save video
+void toggleVideo () {
+	if (saveVideo) {
+		saveVideo = FALSE;		
+	} else {
+		saveVideo = TRUE;	
+	}
+	//cout << "<Interface> Video save state change: " << saveVideo << endl;
+}
+
+// change the state of save video
+void toggleStopVideo () {
+	if (stopVideo) {
+		stopVideo = FALSE;		
+	} else {
+		stopVideo = TRUE;	
+	}
+	//cout << "<Interface> Video stop state change: " << stopVideo << endl;
+}
+
+// change string case; -1: lower case, 0: normal case; 1: upper case
+// change the case of the first letter
+void changeWordCase(string &str, int n){
+	const int length = str.length();
+	if (n==-1) {
+		for(int i=0; i < length; ++i)
+		{
+			str[i] = std::tolower(str[i]);
+		}
+	} else if (n==0) {
+		str[0] = std::toupper(str[0]);
+	} else if (n==1) {
+		for(int i=0; i < length; ++i)
+		{
+			str[i] = std::toupper(str[i]);
+		}
+	}
+}
+
+// parse string and change case to normal case
+void changeStrCase(string &str, int n){
+	string cmd;
+	string obj;
+
+	size_t tokenPos = str.find(" ");
+	cmd = str.substr(0, tokenPos);
+	str.erase(0, tokenPos+1);
+	obj = str;
+	changeWordCase (cmd, n);
+	changeWordCase (obj, n);
+
+	if (cmd.compare("Information") == 0) {
+		cmd = "Info";
+	}
+
+	str = cmd + " " + obj;
+}

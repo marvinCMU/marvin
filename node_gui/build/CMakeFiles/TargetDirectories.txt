@@ -1,0 +1,1 @@
+/home/mmfps/mmfps/mmfpspkg/node_gui/build/CMakeFiles/gui3.exe.dir

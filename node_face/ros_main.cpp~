@@ -1,0 +1,106 @@
+/*
+ * main.cpp
+ *
+ *  Created on: Sep 11, 2012
+ *      Author: dhdash
+ */
+
+
+#include "ros_facedetector.hpp"
+
+//This function takes a few different commands as input:
+//"prepare_take_data:label" will create the directory structure to take data for a face with label "label".
+//"take_data:label" will save a face (if found) with label "label" and will return the face position in pos.
+//"get_label" will try to recognize face and return the label in returnVal and will return the face position in pos.
+//"retrain" will cause the model to be retrained on all data.
+
+
+int main(int argc, char** argv)
+{
+  return face_detector_main(argc, argv );
+}/*
+  FaceDetectionizer fd;
+  
+  CvCapture* capture = 0;
+  capture = cvCaptureFromCAM( -1 ); 
+    
+  string returnVal;
+  Rect pos;
+
+  string label="";
+
+  char key='r';
+  string cmd;
+  bool faceDetected=false;
+  int camera_idx = 0;
+
+  while (true)
+  {
+    //    capture = cvCaptureFromCAM( camera_idx );
+
+    returnVal="";
+    pos.width=0;
+    pos.height=0;
+
+    faceDetected=false;
+    IplImage* iplImg = cvQueryFrame( capture );
+    Mat frame = iplImg;
+    
+    switch (key)
+    {
+    case('a'):
+      camera_idx++;
+      cout<<" camera idx "<< camera_idx<<endl;
+      break;
+      case('r'):
+      {
+        cmd = "get_label";
+        break;
+      }
+     case('p'):
+      {
+        cout << "Enter a label for faces: ";
+        cin >> label;
+        cout << "Preparing to take data for " << label << endl;
+        cmd = "prepare_take_data:"+label;
+        break;
+      }
+     case('t'):
+      {
+	cout << "chirp" << endl;
+       if (label=="")
+       {
+         cout << "It looks like you haven't prepared yet. Type 'p' first." << endl;
+         break;
+       }
+       cout << "Taking data for " << label << "." << endl;
+       cmd = "take_data:" + label;
+       break;
+      }
+     case('T'):
+      {
+       cout << "Retraining model with existing data!" << endl;
+       cmd = "retrain";
+       break;
+      }
+     case('q'):
+         exit(0);
+    }
+
+
+    faceDetected=face_detectionizer_ros(fd, cmd, frame, returnVal, pos);
+    if (faceDetected)
+    {
+      cv::rectangle(frame, pos, CV_RGB(0,128,255), 3, 8, 0 );
+      cv::putText(frame,returnVal.c_str(),cv::Point(pos.x,pos.y+pos.height),cv::FONT_HERSHEY_PLAIN,1.0,cv::Scalar(255,255,255,0));
+    }
+
+    imshow("frame",frame);
+    key = waitKey(0);
+  }
+
+
+  
+}
+
+ */  

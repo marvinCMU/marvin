@@ -1,0 +1,9 @@
+<!--xml-->
+<launch>
+
+  <node name="command" pkg="speech" type="command.py" output="screen">
+    <param name="lm" value="$(find speech)/config/command.lm"/>
+    <param name="dict" value="$(find speech)/config/command.dic"/>
+  </node>
+
+</launch>

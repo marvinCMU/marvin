@@ -1,0 +1,30 @@
+#include "ros/ros.h"
+#include "std_msgs/String.h"
+#include <iostream>
+#include <fstream>
+#include <string>
+
+int main(int argc, char **argv){
+  ros::init(argc, argv, "talker");
+  ros::NodeHandle nh;
+  ros::Publisher gui_info = nh.advertise<std_msgs::String>("guiInfo", 1000);
+  ros::Rate loop_rate(10);
+  std::string filebuffer;
+
+  
+  std::ifstream guifile("/home/mmfps/mmfps/mmfpspkg/data_tmp/gui/log.txt");
+  while(ros::ok()){
+    guifile.open("/home/mmfps/mmfps/mmfpspkg/data_tmp/gui/log.txt");
+    filebuffer.assign( (std::istreambuf_iterator<char>(guifile)),
+			    (std::istreambuf_iterator<char>() ) );
+    guifile.close();
+    //ROS_INFO("%s", filebuffer.c_str());
+    
+    std_msgs::String msg;
+    msg.data = filebuffer;
+    //ROS_INFO("The message is:\n%s", msg.data.c_str());
+    gui_info.publish(msg);
+    ros::spinOnce();
+    loop_rate.sleep();
+  }
+}

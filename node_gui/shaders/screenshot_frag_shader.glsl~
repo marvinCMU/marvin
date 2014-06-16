@@ -1,0 +1,7 @@
+varying vec2 tex_coord;
+uniform sampler2D stream_tex;
+uniform float gTime;
+
+void main(void){
+  gl_FragColor = texture2D( stream_tex, tex_coord );
+}

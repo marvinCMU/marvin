@@ -1,0 +1,15 @@
+/home/dhdash/work/mmfps/mmfpspkg/ext_stacks/node_camera_opencv/build/CMakeFiles/ROSBUILD_genmsg_cpp.dir
+/home/dhdash/work/mmfps/mmfpspkg/ext_stacks/node_camera_opencv/build/CMakeFiles/ROSBUILD_genmsg_lisp.dir
+/home/dhdash/work/mmfps/mmfpspkg/ext_stacks/node_camera_opencv/build/CMakeFiles/ROSBUILD_gensrv_cpp.dir
+/home/dhdash/work/mmfps/mmfpspkg/ext_stacks/node_camera_opencv/build/CMakeFiles/ROSBUILD_gensrv_lisp.dir
+/home/dhdash/work/mmfps/mmfpspkg/ext_stacks/node_camera_opencv/build/CMakeFiles/clean-test-results.dir
+/home/dhdash/work/mmfps/mmfpspkg/ext_stacks/node_camera_opencv/build/CMakeFiles/rosbuild_precompile.dir
+/home/dhdash/work/mmfps/mmfpspkg/ext_stacks/node_camera_opencv/build/CMakeFiles/rosbuild_premsgsrvgen.dir
+/home/dhdash/work/mmfps/mmfpspkg/ext_stacks/node_camera_opencv/build/CMakeFiles/rospack_genmsg.dir
+/home/dhdash/work/mmfps/mmfpspkg/ext_stacks/node_camera_opencv/build/CMakeFiles/rospack_genmsg_libexe.dir
+/home/dhdash/work/mmfps/mmfpspkg/ext_stacks/node_camera_opencv/build/CMakeFiles/rospack_gensrv.dir
+/home/dhdash/work/mmfps/mmfpspkg/ext_stacks/node_camera_opencv/build/CMakeFiles/test.dir
+/home/dhdash/work/mmfps/mmfpspkg/ext_stacks/node_camera_opencv/build/CMakeFiles/test-future.dir
+/home/dhdash/work/mmfps/mmfpspkg/ext_stacks/node_camera_opencv/build/CMakeFiles/test-results.dir
+/home/dhdash/work/mmfps/mmfpspkg/ext_stacks/node_camera_opencv/build/CMakeFiles/test-results-run.dir
+/home/dhdash/work/mmfps/mmfpspkg/ext_stacks/node_camera_opencv/build/CMakeFiles/tests.dir

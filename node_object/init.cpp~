@@ -1,0 +1,86 @@
+/* 
+ * Initialize all the files
+ * Project: Multimodal First Person Sensing (MFPS)
+ * Author: Qifan Hu (qhu@andrew.cmu.edu)
+ * Affiliation: Carnegie Mellon University, ISTC-EC
+ */
+
+#include <cstdio>
+#include <cstdlib>
+#include <iostream>
+#include <fstream>
+#include <string>
+
+#define DIR_PATH 	"~/data/"
+#define	CMD_FILE 	"rm "
+#define CMD_DIR	 	"rm -rf "
+#define CMD_COPY 	"cp "
+#define CMD_FOLDER	"mkdir "
+
+using namespace std;
+
+int main () {
+
+	// parse directory path
+	string dirPath = DIR_PATH;
+	string envPath = getenv("HOME");	
+	dirPath.replace(dirPath.find("~"), 1, envPath);
+	
+	// string variable
+	char *cmds = new char[100];
+	char *logPath = new char[100];
+	
+	// delete all contents in the data folder
+	sprintf(cmds, "%s%s%s", CMD_DIR, dirPath.c_str(), "vision");
+	system(cmds);
+	sprintf(cmds, "%s%s%s", CMD_DIR, dirPath.c_str(), "speech");
+	system(cmds);
+	sprintf(cmds, "%s%s%s", CMD_DIR, dirPath.c_str(), "vision_processed");
+	system(cmds);
+	sprintf(cmds, "%s%s%s", CMD_DIR, dirPath.c_str(), "model_processed");
+	system(cmds);
+	sprintf(cmds, "%s%s%s", CMD_DIR, dirPath.c_str(), "logging");
+	system(cmds);
+
+	// create empty folders
+	sprintf(cmds, "%s%s", CMD_FOLDER, dirPath.c_str());
+	system(cmds);
+	sprintf(cmds, "%s%s%s", CMD_FOLDER, dirPath.c_str(), "vision");
+	system(cmds);
+	sprintf(cmds, "%s%s%s", CMD_FOLDER, dirPath.c_str(), "speech");
+	system(cmds);
+	sprintf(cmds, "%s%s%s", CMD_FOLDER, dirPath.c_str(), "vision_processed");
+	system(cmds);
+	sprintf(cmds, "%s%s%s", CMD_FOLDER, dirPath.c_str(), "model_processed");
+	system(cmds);
+	sprintf(cmds, "%s%s%s", CMD_FOLDER, dirPath.c_str(), "logging");
+	system(cmds);
+	
+	// modify log files
+	sprintf(logPath, "%s%s", dirPath.c_str(), "logging/log.txt");
+	ofstream logFile (logPath);
+	if (logFile.is_open()) {
+		for (int i=0; i<4; i++){
+			if (i==0) {
+				logFile << "00_00_00" << "\n";
+			} else if (i==1) {
+				logFile << "hello world" << "\n";
+			} else if (i==2) {
+				logFile << "world" << "\n";
+			} else if (i==3) {
+				logFile << "hello world";
+			} else {}
+		}
+		logFile.close();
+	} else {
+		cout << "<Interface> Cannot create/open log file!" << endl;
+	}
+
+	// create blank images
+	sprintf(cmds, "%s%s%s%s", CMD_COPY, "code_data/blank.jpg ", dirPath.c_str(), "vision_processed/t_00_00_00.jpg");
+	system(cmds);
+	sprintf(cmds, "%s%s%s%s", CMD_COPY, "code_data/blank.jpg ", dirPath.c_str(), "model_processed/m_00_00_00.jpg");
+	system(cmds);
+
+	return 0;
+}

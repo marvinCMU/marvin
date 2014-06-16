@@ -1,0 +1,50 @@
+shampoo1_on_shelf_1.bmp
+tell me review of this white bottle
+cleanser_on_shelf_1.bmp
+tell me review of this blue bottle
+sharpener_on_shelf_1.bmp
+tell me review of this brown squirrel
+cream_on_shelf_1.bmp
+tell me review of this yellow object
+clock_on_shelf_1.bmp
+tell me review of this white clock
+stapler_on_shelf_1.bmp
+tell me review of this stapler
+buglight_on_shelf_1.bmp
+tell me review of this red bug
+outlet2_on_shelf_1.bmp
+tell me review of this yellow thing
+shampoo2_on_shelf_1.bmp
+tell me review of this green object
+bearpillow_on_shelf_1.bmp
+tell me review of this brown thing
+detergent_on_shelf_1.bmp
+tell me review of this red thing
+peppercontainer_on_shelf_1.bmp
+tell me review of this black thing
+duckclock_on_shelf_1.bmp
+tell me review of this yellow object
+lock1_on_shelf_1.bmp
+tell me review of this black thing
+disinfectwipes_on_shelf_1.bmp
+tell me review of this yellow object
+deodorant_on_shelf_1.bmp
+tell me review of this white speed thing
+duster_on_shelf_1.bmp
+tell me review of this white bottle
+kitchentimer_on_shelf_1.bmp
+tell me review of this red bug
+pixelpad_on_shelf_1.bmp
+tell me review of this white hand
+pencilsharpener_on_shelf_1.bmp
+tell me review of this pink bottle
+outlet3_on_shelf_1.bmp
+tell me review of this white thing
+minifan_on_shelf_1.bmp
+tell me review of this white airplane
+paperpunch_on_shelf_1.bmp
+tell me review of this silver punch
+lock2_on_shelf_1.bmp
+tell me review of this red thing
+dentalfloss_on_shelf_1.bmp
+tell me review of this blue thing

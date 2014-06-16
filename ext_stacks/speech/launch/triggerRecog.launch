@@ -1,0 +1,9 @@
+<!--xml-->
+<launch>
+
+  <node name="trigger" pkg="speech" type="trigger.py" output="screen">
+    <param name="lm" value="$(find speech)/config/trigger.lm"/>
+    <param name="dict" value="$(find speech)/config/trigger.dic"/>
+  </node>
+
+</launch>

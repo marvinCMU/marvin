@@ -1,0 +1,22 @@
+CXX		= /opt/intel/bin/icpc
+LD		= $(CXX)
+#CFLAGS		= -O0
+CFLAGS		= -O3 -fast -xSSE4.2 -msse4.2 -funroll-loops
+CFLAGS		+= -g -Wall `pkg-config --cflags opencv` -isystem /usr/include/opencv
+CXXFLAGS	= $(CFLAGS)
+LDFLAGS		= `pkg-config --libs opencv`
+
+ifdef TBB
+CFLAGS		+= -DENABLE_TBB
+CXXFLAGS	+= -DENABLE_TBB
+LDFLAGS		+= -ltbb
+endif
+
+BIN		= img2key keydisp
+
+all:		$(BIN)
+
+$(BIN): %:  %.o
+	$(CXX) -o $@ $^ $(LDFLAGS)
+
+clean:;		rm -f $(BIN) gmon.out *.o *~

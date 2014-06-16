@@ -1,0 +1,6 @@
+<!--xml-->
+<launch>
+
+  <node name="parser" pkg="speech" type="parser.py" output="screen"/>
+
+</launch>

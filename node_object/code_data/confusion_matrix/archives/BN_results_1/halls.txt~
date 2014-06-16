@@ -1,0 +1,150 @@
+21_11_15
+	S: information halls
+V: halls
+BN: information halls
+
+21_11_24
+	S: option halls
+V: halls
+BN: option halls
+
+21_11_30
+	S: review halls
+V: halls
+BN: review halls
+--
+21_11_37
+	S: information halls
+V: halls
+BN: information halls
+
+21_11_43
+	S: review tupperware
+V: halls
+BN: review halls
+
+21_11_48
+	S: review halls
+V: halls
+BN: review halls
+--
+21_11_58
+	S: option umbrella
+V: disk
+BN: option disk
+
+21_12_04
+	S: option umbrella
+V: halls
+BN: option halls
+
+21_12_18
+	S: information tumbler
+V: disk
+BN: information disk
+--
+21_12_27
+	S: information halls
+V: powder
+BN: information bottle
+
+21_12_33
+	S: option halls
+V: none
+BN: option airborne
+
+21_12_36
+	S: review halls
+V: none
+BN: review airborne
+--
+21_12_47
+	S: information halls
+V: halls
+BN: information halls
+
+21_12_52
+	S: option halls
+V: halls
+BN: option halls
+
+21_12_58
+	S: option halls
+V: halls
+BN: option halls
+--
+21_13_06
+	S: information halls
+V: disk
+BN: information halls
+
+21_13_11
+	S: option halls
+V: disk
+BN: option halls
+
+21_13_17
+	S: review halls
+V: disk
+BN: review halls
+--
+21_13_29
+	S: information halls
+V: disk
+BN: information halls
+
+21_13_34
+	S: option halls
+V: disk
+BN: option halls
+
+21_13_40
+	S: review halls
+V: disk
+BN: review halls
+--
+21_13_48
+	S: information halls
+V: disk
+BN: information halls
+
+21_13_53
+	S: option halls
+V: none
+BN: option airborne
+
+21_13_58
+	S: review halls
+V: disk
+BN: review halls
+--
+21_14_08
+	S: option halls
+V: disk
+BN: option halls
+
+21_14_14
+	S: option halls
+V: disk
+BN: option halls
+
+21_14_25
+	S: option boot
+V: disk
+BN: option disk
+--
+21_14_41
+	S: option tupperware
+V: none
+BN: option tupperware
+
+21_14_48
+	S: option halls
+V: none
+BN: option airborne
+
+21_14_53
+	S: review halls
+V: none
+BN: review airborne
+--

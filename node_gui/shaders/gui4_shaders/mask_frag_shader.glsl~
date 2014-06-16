@@ -1,0 +1,2 @@
+varying vec vTexcoord
+uniforsampler2D 

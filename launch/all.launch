@@ -1,0 +1,113 @@
+<!--xml-->
+<launch>
+
+  <!-- global settings -->
+ <!-- <param name="talkbackActive" type="bool" value="true" /> -->
+  <param name="faceActive" type="bool" value="true" />
+  <param name="locationActive" type="bool" value="true" />
+  <param name="objectActive" type="bool" value="true" />
+  <param name="retailActive" type="bool" value="true" />
+  <param name="dummyTestActive" type="bool" value="false" />
+  <param name="dummyTestVideoInEnable" type="bool" value="false" />
+
+  <param name="speechLibPath" type="string" value="$(find mmfpspkg)/library/lib_speech/"/>
+  <param name="faceLibPath" type="string" value="$(find mmfpspkg)/library/lib_face/" />
+  <param name="locationLibPath" type="string" value="$(find mmfpspkg)/library/lib_location/"/>
+  <param name="retailLibPath" type="string" value="$(find mmfpspkg)/library/lib_retail/"/>
+  <param name="bnetLibPath" type="string" value="$(find mmfpspkg)/library/lib_bnet/"/>
+  <param name="guiLibPath" type="string" value="$(find mmfpspkg)/library/lib_gui/"/>
+  <param name="tmpLibPath" type="string" value="$(find mmfpspkg)/data_tmp/"/>
+
+<!--	args= "_image_transport:=compressed">-->
+
+  <!-- object recognition nodes -->
+  <node name="retail" pkg="mmfpspkg" type="fakeExemplar" output="screen"
+    args= "_image_transport:=raw">
+  </node>
+
+  <!-- face recognition node
+
+  <node name="faceDetector" pkg="mmfpspkg" type="faceDetect" output="screen"
+      args="_image_transport:=raw">
+  </node>
+
+
+  <node name="faceRecognizer" pkg="mmfpspkg" type="faceRecognize" output="screen">
+  </node>
+
+  <node name="faceTrainer" pkg="mmfpspkg" type="faceTrain" output="screen">
+  </node>
+-->
+
+  
+  <!-- location recognition nodes -->
+  
+  
+  <!-- speech recognition nodes -->
+  <node name="dialogManager" pkg="mmfpspkg" type="DialogManager.py" output="screen">
+  </node>
+
+<!-- recognition photo sender node -->
+<!--  <node name = "recognitionInfo" pkg="mmfpspkg" type="reconInfo" output="screen">
+  </node>
+
+<node name="republishRecon" type="republish" pkg="image_transport" output ="screen" 
+      args="raw in:=/recognition/image compressed out:=/recognition/image_compressed"/>-->
+
+<node name = "retailResult" pkg="mmfpspkg" type="retailResult" output="screen">
+</node>
+
+  <!-- bayesian network nodes -->
+  <node name="bnet" pkg="mmfpspkg" type="bayesNet" output="screen">
+  </node>
+
+<node name="republishConfirm" type="republish" pkg="image_transport" output ="screen" 
+      args="raw in:=/bnet/face/confirmation compressed out:=/bnet/face/confirmation"/>
+
+<!-- location nodes
+<node name="locationSaver" pkg="mmfpspkg" type="location" output="screen"
+      args="_image_transport:=raw">
+</node>
+-->
+
+<!--republish gui message-->
+<node name="republishRecieveGui" type="republish" pkg="image_transport" output ="screen" 
+      args="compressed in:=/gui/image_raw/repub raw out:=/gui/image_raw"/>
+
+<!--
+  <machine name="tablet" address="taylor-700T1C"  user="mmfps">
+  </machine>
+-->
+
+  <machine name="tablet" address="128.237.249.238"  user="mmfps">
+  </machine>
+
+
+  <node machine="tablet" name="retailCommander" pkg="mmfpspkg" type="RetailCommander.py" output="screen" >
+    <param name="lm" type="string" value="$(find mmfpspkg)/library/lib_speech/general.lm"/>
+    <param name="dict" type="string" value="$(find mmfpspkg)/library/lib_speech/general.dic"/>
+  </node>
+
+  <!--face commander node  -->
+  <node machine="tablet" name="faceCommander" pkg="mmfpspkg" type="FaceCommander.py" output="screen">
+    <param name="lm" type="string" value="$(find mmfpspkg)/library/lib_speech/general.lm"/>
+    <param name="dict" type="string" value="$(find mmfpspkg)/library/lib_speech/general.dic"/>
+  </node>
+
+
+<node machine="tablet" name="republishGui" type="republish" pkg="image_transport" output="screen"
+      args="raw in:=/gui/image_raw/original compressed out:=/gui/image_raw/repub"/>
+
+
+  <!-- speech recognition nodes -->
+  <node machine="tablet" name="trigger" pkg="mmfpspkg" type="trigger.py" output="screen" >
+    <param name="lm" type="string" value="$(find mmfpspkg)/library/lib_speech/trigger.lm"/>
+    <param name="dict" type="string" value="$(find mmfpspkg)/library/lib_speech/trigger.dic"/>
+  </node>
+
+
+<node machine="tablet" name= "guiNode" pkg="mmfpspkg" type="Gui" output="screen" 
+      args= "_image_transport:=compressed">
+</node>
+</launch>
+

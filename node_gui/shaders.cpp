@@ -1,0 +1,61 @@
+bool load_shader( const char* file, GLint type, GLhandleARB program ){
+  std::ifstream infile;
+  char* buffer;
+  char error_msg[2048];
+  GLhandleARB shader;
+  
+  infile.open( file );
+  if( infile.fail() ){
+    std::cout<<"Error cannot open file: "<<file <<std::endl;
+    infile.close();
+    return false;
+  }
+
+  infile.seekg( 0, std::ios::end );
+  int length = infile.tellg();
+  infile.seekg( 0, std::ios::beg );
+  buffer = (char*) malloc( (length+1 ) * sizeof *buffer );
+  if( !buffer )
+    return false;
+  infile.getline( buffer, length, '\0');
+  infile.close();
+  shader = glCreateShaderObjectARB( type );
+  const char * src= buffer;
+  glShaderSource( shader, 1, &src, NULL );
+  glCompileShader( shader );
+  GLint result;
+  glGetObjectParameterivARB( shader, GL_OBJECT_COMPILE_STATUS_ARB, &result );
+  if(result != GL_TRUE ){
+    glGetInfoLogARB( shader, sizeof error_msg, NULL, error_msg );
+    std::cout<< "GLSL COMPILE ERROR in "<< file <<": "<<error_msg <<std::endl;
+    return false;
+  }else{
+    std::cout<<"Compiled shaders successfully" <<std::endl;
+  }
+
+  glAttachObjectARB( program, shader );
+  free( buffer );
+  return true;
+}
+
+bool create_shader( GLhandleARB program, const char * vert_file, const char* frag_file ){
+  bool rv = true;
+  std::cout<< "Loading vertex shader "<< vert_file
+	   <<"\nLoading fragment shader "<< frag_file << std::endl;
+  rv = rv && load_shader( vert_file, GL_VERTEX_SHADER, program );
+  rv = rv && load_shader( frag_file, GL_FRAGMENT_SHADER, program );
+  
+  if( !rv )
+    return false;
+  
+  glLinkProgram( program );
+  GLint result;
+  glGetProgramiv( program, GL_LINK_STATUS, &result );
+  if( result == GL_TRUE ){
+    std::cout << "Succesfully linked shader"<<std::endl;
+    return true;
+  }else{
+    std::cout << "FAILED to link shader" <<std::endl;
+    return false;
+  }
+}

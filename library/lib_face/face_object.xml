@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<face id="face1">
+		<name>Denver</name>
+		<gender>1</gender>
+		<location>office</location>
+	</face>
+	<face id="face2">
+		<name>Fanyi</name>
+		<gender>1</gender>
+		<location>campus</location>
+	</face>
+	<face id="face3">
+		<name>Qifan</name>
+		<gender>1</gender>
+		<location>campus</location>
+	</face>
+</root>

@@ -1,0 +1,2 @@
+pkill MATLAB
+pkill gui

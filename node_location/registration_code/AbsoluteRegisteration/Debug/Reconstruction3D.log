@@ -1,0 +1,28 @@
+﻿Build started 10/2/2012 1:26:13 PM.
+     1>Project "C:\HS\Programming\3DReconstruction\AbsoluteRegisteration_AD\Reconstruction3D.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\AbsoluteRegistration_AD.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Program Files\flann\include" /IC:\HS\Include /ZI /nologo /W0 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\Include\DataUtility.cpp ..\Include\epnp.cpp ..\Include\MathUtility.cpp ..\Include\MultiviewGeometryUtility.cpp AbsoluteRegistration.cpp
+         AbsoluteRegistration.cpp
+     1>c:\hs\programming\3dreconstruction\absoluteregisteration_ad\absoluteregistration.cpp(304): error C2664: 'void std::vector<_Ty>::push_back(_Ty &&)' : cannot convert parameter 1 from 'std::vector<_Ty>' to 'int &&'
+                 with
+                 [
+                     _Ty=int
+                 ]
+                 Reason: cannot convert from 'std::vector<_Ty>' to 'int'
+                 with
+                 [
+                     _Ty=int
+                 ]
+                 No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+         MultiviewGeometryUtility.cpp
+         MathUtility.cpp
+         epnp.cpp
+         DataUtility.cpp
+         Generating Code...
+     1>Done Building Project "C:\HS\Programming\3DReconstruction\AbsoluteRegisteration_AD\Reconstruction3D.vcxproj" (build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:08.79

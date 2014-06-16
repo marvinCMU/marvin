@@ -1,0 +1,9 @@
+syntax: obj xmin xmax ymin ymax
+book 242 665 322 709
+cap 0 0 0 0
+cup 718 1280 441 960
+disk 0 0 0 0
+sweater 886 1059 322 466
+toy 0 0 0 0
+tumbler 0 466 467 960
+umbrella 0 0 0 0

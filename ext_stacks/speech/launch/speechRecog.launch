@@ -1,0 +1,16 @@
+<!--xml-->
+<launch>
+
+  <node name="trigger" pkg="speech" type="trigger.py" output="screen" >
+    <param name="lm" value="$(find speech)/config/trigger.lm"/>
+    <param name="dict" value="$(find speech)/config/trigger.dic"/>
+  </node>
+
+  <node name="command" pkg="speech" type="command.py" output="screen" >
+    <param name="lm" value="$(find speech)/config/retail.lm"/>
+    <param name="dict" value="$(find speech)/config/retail.dic"/>
+  </node>
+
+  <node name="parser" pkg="speech" type="parser.py" output="screen"/>
+
+</launch>

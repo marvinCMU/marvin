@@ -1,0 +1,1 @@
+../../ros/bnet/speech_keywords.txt
